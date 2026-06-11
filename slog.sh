@@ -54,11 +54,11 @@ slog() {
 	if [ "$local_mode" -eq 1 ]; then
 		for jobid; do
 			if [ "$show_stderr" -eq 1 ]; then
-				err_path=$(find log* -maxdepth 4 -type f -name "${jobid}.err" -print -quit 2>/dev/null)
+				err_path=$(find log* "${SLOG_ARGS:-'-maxdepth 5'}" -type f -name "${jobid}.err" -print -quit)
 				[ -n "$err_path" ] && color_print "$err_path" "$ERR_COLOR" "$color"
 			fi
 			if [ "$show_stdout" -eq 1 ]; then
-				out_path=$(find log* -maxdepth 4 -type f -name "${jobid}.out" -print -quit 2>/dev/null)
+				out_path=$(find log* "${SLOG_ARGS:-'-maxdepth 5'}" -type f -name "${jobid}.out" -print -quit)
 				[ -n "$out_path" ] && color_print "$out_path" "$OUT_COLOR" "$color"
 			fi
 		done

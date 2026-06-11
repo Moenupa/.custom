@@ -20,6 +20,7 @@ adaptive_alias "vim" "vi"
 adaptive_alias "bat" "cat"
 adaptive_alias "podman" "docker"
 adaptive_alias "tldr" "eg"
+adaptive_alias "nail" "pq"
 
 # python -----------------------------------------------------------------------
 alias py='python3'
@@ -34,16 +35,16 @@ alias ffi='ruff check --select I --fix'
 alias hfdata='hf download --repo-type dataset'
 
 # slurm ------------------------------------------------------------------------
-export SQUEUE_FORMAT="%.10i %.4P %.50j %.10u %.2t %.12M %.2D %R"
-export SACCT_FORMAT="JobID%-10,JobName%-50,State,ExitCode,Start,End,Elapsed,NodeList,WorkDir%30"
+export SQUEUE_FORMAT='%.10i %.4P %.56j %.8u %.2t %.12M %.2D %R'
+export SACCT_FORMAT='JobID%-10,JobName%-56,State,ExitCode,Start,End,Elapsed,NodeList,WorkDir%30'
 
+alias sb='sbatch'
 alias scc='scancel'
-alias sq='squeue'
 alias sd='scontrol show jobid -d'
-alias usq="squeue -u $USER"
-alias slist="sacct -u $USER -X -S now-1days"
+alias sq='squeue'
+alias usq='squeue --me'
+alias slist='sacct -X -S now-1days'
 alias shist='slist | head -n 2; slist -n | sort -k 5 -r' # sorted by start time
 alias slast='slist | head -n 2; slist -n | sort -k 6 -r' # sorted by end time
 alias sl='slog'
-alias sll="slog --local"
-alias sb="sbatch"
+alias sll='slog --local'
