@@ -8,6 +8,7 @@ alias gm='git commit -m'
 alias duhid='du -sh .[^.]*'
 alias tf='tail -f'
 alias t='xargs tail -f'
+alias h='xargs head'
 
 alias prj='cd $prj'
 alias lst='cd $lst'

@@ -1,4 +1,4 @@
-sbatch [<SBATCH_OPTION>]... (<SBATCH_SCRIPT> | <DIRECTORY>)... [<PATH> | <EXE> | --]...;
+sbatch ([<SBATCH_OPTION>]... || --) <PATH> (<PATH> | <EXE>)...;
 
 <SBATCH_OPTION> ::=
 	(-a | --array=0[(,|-)0[(%|:)1]]) "job array index values"
@@ -32,7 +32,6 @@ sbatch [<SBATCH_OPTION>]... (<SBATCH_SCRIPT> | <DIRECTORY>)... [<PATH> | <EXE> |
 	| (-O | --overcommit) "overcommit resources"
 	| (-p <PARTITION> | --partition=<PARTITION>) "partition requested"
 	| --parsable "outputs only the jobid and cluster name (if present), separated by semicolon, only on successful submission."
-	| --power=[...] "power management options"
 	| --priority=[0] "set the priority of the job to value"
 	| --profile=(all | none | <DATATYPE>||[,<DATATYPE>]...) "enable acct_gather_profile for detailed data value is all or none or any combination of energy, lustre, network or task"
 	| --propagate[=rlimits] "propagate all [or specific list of] rlimits"
@@ -65,10 +64,6 @@ sbatch [<SBATCH_OPTION>]... (<SBATCH_SCRIPT> | <DIRECTORY>)... [<PATH> | <EXE> |
 	| --usage "display brief usage message"
 	| (-V | --version) "output version information and exit"
 	;
-
-<SBATCH_SCRIPT@fish> ::= {{{ __fish_complete_directories "$1" && __fish_complete_path "$1" "Script" | string match -e '.sbatch' }}};
-<SBATCH_SCRIPT@zsh> ::= {{{ _files -g "*.sbatch" }}};
-<SBATCH_SCRIPT@bash> ::= {{{ compgen -f -- "$1" | grep -e '.sbatch' }}};
 
 <ACCOUNT> ::= {{{ sacctmgr show account -nP format=account }}};
 <CLUSTER> ::= {{{ sacctmgr show cluster -nP format=clusters }}};
