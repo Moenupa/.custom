@@ -2,7 +2,7 @@
 
 function _scancel_cmd_0
     set 1 $argv[1]
-    squeue -u $USER -ho '%A|%j|%T' | tr -s '|' '\t'
+    squeue --me -ho '%A|%j|%T' | tr -s '|' '\t'
 end
 
 function _scancel_cmd_1
@@ -12,7 +12,7 @@ end
 
 function _scancel_cmd_2
     set 1 $argv[1]
-    squeue -u $USER -ho '%j|%T' | tr -s '|' '\t'
+    squeue --me -ho '%j|%T' | tr -s '|' '\t'
 end
 
 function _scancel_cmd_3
@@ -42,10 +42,83 @@ end
 
 function _scancel_cmd_8
     set 1 $argv[1]
-    squeue -u $USER -ho '%w'
+    squeue --me -ho '%w'
 end
 
-function _scancel_subword_9
+function _scancel_subword_4
+    set --global subword_literals "--qos="
+    set --global subword_descrs
+    set --global subword_descrs[1] "act only on jobs with this quality of service"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "4,3"
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "4"
+    set --global subword_max_fallback_level 0
+    _scancel_subword "$argv[1]" "$argv[2]"
+end
+
+function _scancel_subword_7
+    set --global subword_literals "--signal=" "34" "33" "32" "31" "30" "29" "28" "27" "26" "25" "24" "23" "22" "21" "20" "19" "18" "17" "16" "15" "14" "13" "12" "11" "10" "9" "8" "7" "6" "5" "4" "3" "2" "1"
+    set --global subword_descrs
+    set --global subword_descrs[1] "signal to send to job, default is SIGKILL"
+    set --global subword_descrs[2] "SIGAIO"
+    set --global subword_descrs[3] "SIGLWP"
+    set --global subword_descrs[4] "SIGWAITING"
+    set --global subword_descrs[5] "SIGXFSZ"
+    set --global subword_descrs[6] "SIGXCPU"
+    set --global subword_descrs[7] "SIGPROF"
+    set --global subword_descrs[8] "SIGVTALRM"
+    set --global subword_descrs[9] "SIGTTOU"
+    set --global subword_descrs[10] "SIGTTIN"
+    set --global subword_descrs[11] "SIGCONT"
+    set --global subword_descrs[12] "SIGTSTP"
+    set --global subword_descrs[13] "SIGSTOP"
+    set --global subword_descrs[14] "SIGPOLL or SIGIO"
+    set --global subword_descrs[15] "SIGURG"
+    set --global subword_descrs[16] "SIGWINCH"
+    set --global subword_descrs[17] "SIGPWR"
+    set --global subword_descrs[18] "SIGCLD or SIGCHLD"
+    set --global subword_descrs[19] "SIGUSR2"
+    set --global subword_descrs[20] "SIGUSR1"
+    set --global subword_descrs[21] "SIGTERM"
+    set --global subword_descrs[22] "SIGALRM"
+    set --global subword_descrs[23] "SIGPIPE"
+    set --global subword_descrs[24] "SIGSYS"
+    set --global subword_descrs[25] "SIGSEGV"
+    set --global subword_descrs[26] "SIGBUS"
+    set --global subword_descrs[27] "SIGKILL"
+    set --global subword_descrs[28] "SIGFPE"
+    set --global subword_descrs[29] "SIGEMT"
+    set --global subword_descrs[30] "SIGIOT or SIGABRT"
+    set --global subword_descrs[31] "SIGTRAP"
+    set --global subword_descrs[32] "SIGILL"
+    set --global subword_descrs[33] "SIGQUIT"
+    set --global subword_descrs[34] "SIGINT"
+    set --global subword_descrs[35] "SIGHUP"
+    set --global subword_descr_literal_ids 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35
+    set --global subword_descr_ids 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35"
+    set --global subword_literal_transitions_tos[2] "3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3"
+    set --global subword_command_transitions
+    set --global subword_literal_froms_level_0 1 2
+    set --global subword_literal_inputs_level_0 "1" "2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35"
+    set --global subword_command_froms_level_0 
+    set --global subword_commands_level_0 
+    set --global subword_max_fallback_level 0
+    _scancel_subword "$argv[1]" "$argv[2]"
+end
+
+function _scancel_subword_8
     set --global subword_literals "SUSPENDED" "--state=" "RUNNING" "PENDING"
     set --global subword_descrs
     set --global subword_descrs[1] "act only on jobs in this state"
@@ -57,15 +130,68 @@ function _scancel_subword_9
     set --global subword_literal_transitions_inputs[2] "1 3 4"
     set --global subword_literal_transitions_tos[2] "3 3 3"
     set --global subword_command_transitions
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1 2
-    set --global subword_literal_inputs_level_1 "2" "1 3 4"
+    set --global subword_literal_froms_level_0 1 2
+    set --global subword_literal_inputs_level_0 "2" "1 3 4"
     set --global subword_command_froms_level_0 
     set --global subword_commands_level_0 
-    set --global subword_command_froms_level_1 
-    set --global subword_commands_level_1 
-    set --global subword_max_fallback_level 1
+    set --global subword_max_fallback_level 0
+    _scancel_subword "$argv[1]" "$argv[2]"
+end
+
+function _scancel_subword_5
+    set --global subword_literals "--reservation="
+    set --global subword_descrs
+    set --global subword_descrs[1] "act only on jobs with this reservation"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "5,3"
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "5"
+    set --global subword_max_fallback_level 0
+    _scancel_subword "$argv[1]" "$argv[2]"
+end
+
+function _scancel_subword_3
+    set --global subword_literals "--partition="
+    set --global subword_descrs
+    set --global subword_descrs[1] "act only on jobs in this partition"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "3,3"
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "3"
+    set --global subword_max_fallback_level 0
+    _scancel_subword "$argv[1]" "$argv[2]"
+end
+
+function _scancel_subword_9
+    set --global subword_literals "--user="
+    set --global subword_descrs
+    set --global subword_descrs[1] "act only on jobs of this user"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "7,3"
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "7"
+    set --global subword_max_fallback_level 0
     _scancel_subword "$argv[1]" "$argv[2]"
 end
 
@@ -80,171 +206,15 @@ function _scancel_subword_1
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_command_transitions
     set --global subword_command_transitions[2] "1,3"
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1
-    set --global subword_literal_inputs_level_1 "1"
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
     set --global subword_command_froms_level_0 2
     set --global subword_commands_level_0 "1"
-    set --global subword_command_froms_level_1 
-    set --global subword_commands_level_1 
-    set --global subword_max_fallback_level 1
+    set --global subword_max_fallback_level 0
     _scancel_subword "$argv[1]" "$argv[2]"
-end
-
-function _scancel_subword_shape_2
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "2,3"
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1
-    set --global subword_literal_inputs_level_1 "1"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "2"
-    set --global subword_command_froms_level_1 
-    set --global subword_commands_level_1 
-    set --global subword_max_fallback_level 1
-    _scancel_subword "$argv[1]" "$argv[2]"
-end
-
-function _scancel_subword_2
-    set --global subword_literals "--jobname="
-    set --global subword_descrs
-    set --global subword_descrs[1] "act only on jobs with this name"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _scancel_subword_shape_2 "$argv[1]" "$argv[2]"
-end
-
-function _scancel_subword_3
-    set --global subword_literals "--name="
-    set --global subword_descrs
-    set --global subword_descrs[1] "act only on jobs with this name"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _scancel_subword_shape_2 "$argv[1]" "$argv[2]"
 end
 
 function _scancel_subword_6
-    set --global subword_literals "--reservation="
-    set --global subword_descrs
-    set --global subword_descrs[1] "act only on jobs with this reservation"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "5,3"
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1
-    set --global subword_literal_inputs_level_1 "1"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "5"
-    set --global subword_command_froms_level_1 
-    set --global subword_commands_level_1 
-    set --global subword_max_fallback_level 1
-    _scancel_subword "$argv[1]" "$argv[2]"
-end
-
-function _scancel_subword_10
-    set --global subword_literals "--user="
-    set --global subword_descrs
-    set --global subword_descrs[1] "act only on jobs of this user"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "7,3"
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1
-    set --global subword_literal_inputs_level_1 "1"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "7"
-    set --global subword_command_froms_level_1 
-    set --global subword_commands_level_1 
-    set --global subword_max_fallback_level 1
-    _scancel_subword "$argv[1]" "$argv[2]"
-end
-
-function _scancel_subword_5
-    set --global subword_literals "--qos="
-    set --global subword_descrs
-    set --global subword_descrs[1] "act only on jobs with this quality of service"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "4,3"
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1
-    set --global subword_literal_inputs_level_1 "1"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "4"
-    set --global subword_command_froms_level_1 
-    set --global subword_commands_level_1 
-    set --global subword_max_fallback_level 1
-    _scancel_subword "$argv[1]" "$argv[2]"
-end
-
-function _scancel_subword_4
-    set --global subword_literals "--partition="
-    set --global subword_descrs
-    set --global subword_descrs[1] "act only on jobs in this partition"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "3,3"
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1
-    set --global subword_literal_inputs_level_1 "1"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "3"
-    set --global subword_command_froms_level_1 
-    set --global subword_commands_level_1 
-    set --global subword_max_fallback_level 1
-    _scancel_subword "$argv[1]" "$argv[2]"
-end
-
-function _scancel_subword_8
-    set --global subword_literals "SIGWAITING" "SIGVTALRM" "--signal=" "SIGWINCH" "SIGXFSZ" "SIGXCPU" "SIGUSR2" "SIGUSR1" "SIGTTOU" "SIGTTIN" "SIGTSTP" "SIGTRAP" "SIGTERM" "SIGSTOP" "SIGSEGV" "SIGQUIT" "SIGPROF" "SIGPOLL" "SIGPIPE" "SIGKILL" "SIGCONT" "SIGCHLD" "SIGALRM" "SIGABRT" "SIGURG" "SIGSYS" "SIGPWR" "SIGLWP" "SIGIOT" "SIGINT" "SIGILL" "SIGHUP" "SIGFPE" "SIGEMT" "SIGCLD" "SIGBUS" "SIGAIO" "SIGIO" "34" "33" "32" "31" "30" "29" "28" "27" "26" "25" "24" "23" "22" "21" "20" "19" "18" "17" "16" "15" "14" "13" "12" "11" "10" "9" "8" "7" "6" "5" "4" "3" "2" "1"
-    set --global subword_descrs
-    set --global subword_descrs[1] "signal to send to job, default is SIGKILL"
-    set --global subword_descr_literal_ids 3
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "3"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "1 2 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72"
-    set --global subword_literal_transitions_tos[2] "3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3"
-    set --global subword_command_transitions
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1 2
-    set --global subword_literal_inputs_level_1 "3" "1 2 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72"
-    set --global subword_command_froms_level_0 
-    set --global subword_commands_level_0 
-    set --global subword_command_froms_level_1 
-    set --global subword_commands_level_1 
-    set --global subword_max_fallback_level 1
-    _scancel_subword "$argv[1]" "$argv[2]"
-end
-
-function _scancel_subword_7
     set --global subword_literals "--sibling="
     set --global subword_descrs
     set --global subword_descrs[1] "remove an active sibling job from a federated job"
@@ -267,7 +237,26 @@ function _scancel_subword_7
     _scancel_subword "$argv[1]" "$argv[2]"
 end
 
-function _scancel_subword_11
+function _scancel_subword_2
+    set --global subword_literals "--jobname="
+    set --global subword_descrs
+    set --global subword_descrs[1] "act only on jobs with this name"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "2,3"
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "2"
+    set --global subword_max_fallback_level 0
+    _scancel_subword "$argv[1]" "$argv[2]"
+end
+
+function _scancel_subword_10
     set --global subword_literals "--wckey="
     set --global subword_descrs
     set --global subword_descrs[1] "act only on jobs with this workload charactization key"
@@ -538,7 +527,7 @@ function _scancel
         set COMP_CWORD (count $COMP_WORDS)
     end
 
-    set literals "--interactive" "SIGWAITING" "--nodelist" "--clusters" "SUSPENDED" "SIGVTALRM" "--version" "--verbose" "SIGWINCH" "SIGXFSZ" "SIGXCPU" "SIGUSR2" "SIGUSR1" "SIGTTOU" "SIGTTIN" "SIGTSTP" "SIGTRAP" "SIGTERM" "SIGSTOP" "SIGSEGV" "SIGQUIT" "SIGPROF" "SIGPOLL" "SIGPIPE" "SIGKILL" "SIGCONT" "SIGCHLD" "SIGALRM" "SIGABRT" "RUNNING" "PENDING" "--usage" "--quiet" "--hurry" "--batch" "SIGURG" "SIGSYS" "SIGPWR" "SIGLWP" "SIGIOT" "SIGINT" "SIGILL" "SIGHUP" "SIGFPE" "SIGEMT" "SIGCLD" "SIGBUS" "SIGAIO" "--help" "--full" "--ctld" "--cron" "SIGIO" "34" "33" "32" "31" "30" "29" "28" "27" "26" "25" "24" "23" "22" "21" "20" "19" "18" "17" "16" "15" "14" "13" "12" "11" "10" "-w" "-v" "-u" "-t" "-s" "-q" "-p" "-n" "-i" "-f" "-c" "-b" "-V" "-R" "-Q" "-M" "-H" "-A" "9" "8" "7" "6" "5" "4" "3" "2" "1"
+    set literals "--interactive" "--nodelist" "--clusters" "SUSPENDED" "--version" "--verbose" "RUNNING" "PENDING" "--usage" "--quiet" "--hurry" "--batch" "--help" "--full" "--ctld" "--cron" "34" "33" "32" "31" "30" "29" "28" "27" "26" "25" "24" "23" "22" "21" "20" "19" "18" "17" "16" "15" "14" "13" "12" "11" "10" "-w" "-v" "-u" "-t" "-s" "-q" "-p" "-n" "-i" "-f" "-c" "-b" "-V" "-R" "-Q" "-M" "-H" "-A" "9" "8" "7" "6" "5" "4" "3" "2" "1"
     set descrs
     set descrs[1] "require response from user for each job"
     set descrs[2] "act only on jobs on these nodes"
@@ -553,22 +542,48 @@ function _scancel
     set descrs[11] "signal batch shell and all steps for specified job"
     set descrs[12] "send request directly to slurmctld"
     set descrs[13] "cancel an scrontab job"
-    set descrs[14] "act only on jobs of this user"
-    set descrs[15] "act only on jobs in this state"
-    set descrs[16] "signal to send to job, default is SIGKILL"
-    set descrs[17] "act only on jobs with this quality of service"
-    set descrs[18] "act only on jobs in this partition"
-    set descrs[19] "act only on jobs with this name"
-    set descrs[20] "act only on jobs with this reservation"
-    set descrs[21] "act only on jobs charging this account"
-    set descr_literal_ids 1 3 4 7 8 32 33 34 35 49 50 51 52 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96
-    set descr_ids 1 2 3 4 5 6 7 8 9 10 11 12 13 2 5 14 15 16 17 18 19 1 11 13 9 4 20 7 3 8 21
+    set descrs[14] "SIGAIO"
+    set descrs[15] "SIGLWP"
+    set descrs[16] "SIGWAITING"
+    set descrs[17] "SIGXFSZ"
+    set descrs[18] "SIGXCPU"
+    set descrs[19] "SIGPROF"
+    set descrs[20] "SIGVTALRM"
+    set descrs[21] "SIGTTOU"
+    set descrs[22] "SIGTTIN"
+    set descrs[23] "SIGCONT"
+    set descrs[24] "SIGTSTP"
+    set descrs[25] "SIGSTOP"
+    set descrs[26] "SIGPOLL or SIGIO"
+    set descrs[27] "SIGURG"
+    set descrs[28] "SIGWINCH"
+    set descrs[29] "SIGPWR"
+    set descrs[30] "SIGCLD or SIGCHLD"
+    set descrs[31] "SIGUSR2"
+    set descrs[32] "SIGUSR1"
+    set descrs[33] "SIGTERM"
+    set descrs[34] "SIGALRM"
+    set descrs[35] "SIGPIPE"
+    set descrs[36] "SIGSYS"
+    set descrs[37] "SIGSEGV"
+    set descrs[38] "SIGBUS"
+    set descrs[39] "SIGKILL"
+    set descrs[40] "SIGFPE"
+    set descrs[41] "SIGEMT"
+    set descrs[42] "SIGIOT or SIGABRT"
+    set descrs[43] "SIGTRAP"
+    set descrs[44] "SIGILL"
+    set descrs[45] "SIGQUIT"
+    set descrs[46] "SIGINT"
+    set descrs[47] "SIGHUP"
+    set descr_literal_ids 1 2 3 5 6 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 60 61 62 63 64 65 66 67 68
+    set descr_ids 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
     set literal_transitions_inputs
-    set literal_transitions_inputs[1] "1 3 4 7 8 32 33 34 35 49 50 51 52 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96"
+    set literal_transitions_inputs[1] "1 2 3 5 6 9 10 11 12 13 14 15 16 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59"
     set literal_transitions_tos[1] "1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 10 9 8 6 5 4 1 1 1 1 1 7 1 3 1 2"
-    set literal_transitions_inputs[8] "2 6 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 36 37 38 39 40 41 42 43 44 45 46 47 48 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 97 98 99 100 101 102 103 104 105"
-    set literal_transitions_tos[8] "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"
-    set literal_transitions_inputs[9] "5 30 31"
+    set literal_transitions_inputs[8] "17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 60 61 62 63 64 65 66 67 68"
+    set literal_transitions_tos[8] "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"
+    set literal_transitions_inputs[9] "4 7 8"
     set literal_transitions_tos[9] "1 1 1"
     set command_transitions
     set command_transitions[1] "0,1"
@@ -579,8 +594,8 @@ function _scancel
     set command_transitions[6] "4,1"
     set command_transitions[7] "5,1"
     set command_transitions[10] "7,1"
-    set subword_transitions_ids[1] "1 2 3 4 5 6 7 8 9 10 11"
-    set subword_transitions_tos[1] "1 1 1 1 1 1 1 1 1 1 1"
+    set subword_transitions_ids[1] "1 2 3 4 5 6 7 8 9 10"
+    set subword_transitions_tos[1] "1 1 1 1 1 1 1 1 1 1"
 
     set state 1
     set word_index 2
@@ -672,19 +687,19 @@ function _scancel
         return 1
     end
 
-    set literal_froms_level_0 
-    set literal_inputs_level_0 
+    set literal_froms_level_0 1
+    set literal_inputs_level_0 "1 2 3 5 6 10 11 12 14 16"
     set literal_froms_level_1 1 8 9
-    set literal_inputs_level_1 "1 3 4 7 8 32 33 34 35 49 50 51 52 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96" "2 6 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 36 37 38 39 40 41 42 43 44 45 46 47 48 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 97 98 99 100 101 102 103 104 105" "5 30 31"
+    set literal_inputs_level_1 "9 13 15 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59" "17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 60 61 62 63 64 65 66 67 68" "4 7 8"
     set command_froms_level_0 1 2 3 4 5 6 7 10
     set commands_level_0 "0" "1" "6" "2" "3" "4" "5" "7"
     set command_froms_level_1 
     set commands_level_1 
     set --global subword_max_fallback_level 1
-    set subword_froms_level_0 
-    set subwords_level_0 
+    set subword_froms_level_0 1
+    set subwords_level_0 "1 2 3 4 5 7 8 9"
     set subword_froms_level_1 1
-    set subwords_level_1 "1 2 3 4 5 6 7 8 9 10 11"
+    set subwords_level_1 "6 10"
 
     set fallback_level 0
     while test $fallback_level -le 1

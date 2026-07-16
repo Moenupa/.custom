@@ -82,23 +82,23 @@ function _template
         set COMP_CWORD (count $COMP_WORDS)
     end
 
-    set literals "--verbose" "--write" "--force" "--help" "-w" "-v" "-h" "-f"
+    set literals "--verbose" "--write" "--force" "--help" "-w" "-v" "-h" "-f" "--"
     set descrs
-    set descrs[1] "Confirm on write to './<specname>'"
+    set descrs[1] "Confirm on overwrite"
     set descrs[2] "Write template to './<specname>'"
-    set descrs[3] "Froce write to './<specname>'"
+    set descrs[3] "Force overwrite"
     set descrs[4] "Print help message"
-    set descr_literal_ids 1 2 3 4 5 6 7 8
-    set descr_ids 1 2 3 4 2 1 4 3
+    set descr_literal_ids 1 2 3 4
+    set descr_ids 1 2 3 4
     set literal_transitions_inputs
-    set literal_transitions_inputs[1] "2 4 5 7"
-    set literal_transitions_tos[1] "2 1 2 1"
-    set literal_transitions_inputs[2] "3 8"
-    set literal_transitions_tos[2] "3 3"
-    set literal_transitions_inputs[3] "1 6"
-    set literal_transitions_tos[3] "1 1"
+    set literal_transitions_inputs[1] "1 2 3 4 5 6 7 8 9"
+    set literal_transitions_tos[1] "2 2 2 2 2 2 2 2 3"
+    set literal_transitions_inputs[2] "1 2 3 4 5 6 7 8"
+    set literal_transitions_tos[2] "2 2 2 2 2 2 2 2"
     set command_transitions
-    set command_transitions[1] "0,1"
+    set command_transitions[1] "0,4"
+    set command_transitions[2] "0,4"
+    set command_transitions[3] "0,4"
 
     set state 1
     set word_index 2
@@ -172,12 +172,12 @@ function _template
         return 1
     end
 
-    set literal_froms_level_0 
-    set literal_inputs_level_0 
-    set literal_froms_level_1 1 2 3
-    set literal_inputs_level_1 "2 4 5 7" "3 8" "1 6"
-    set command_froms_level_0 1
-    set commands_level_0 "0"
+    set literal_froms_level_0 1 2
+    set literal_inputs_level_0 "1 2 3 4" "1 2 3 4"
+    set literal_froms_level_1 1 2
+    set literal_inputs_level_1 "5 6 7 8 9" "5 6 7 8"
+    set command_froms_level_0 1 2 3
+    set commands_level_0 "0" "0" "0"
     set command_froms_level_1 
     set commands_level_1 
     set --global subword_max_fallback_level 1

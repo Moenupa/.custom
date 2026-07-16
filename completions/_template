@@ -29,19 +29,20 @@ compadd_hook () {
 }
 
 _template () {
-    declare -a literals=("--verbose" "--write" "--force" "--help" "-w" "-v" "-h" "-f")
+    declare -a literals=("--verbose" "--write" "--force" "--help" "-w" "-v" "-h" "-f" "--")
     declare -A descriptions=()
-    descriptions[0]="Confirm on write to './<specname>'"
+    descriptions[0]="Confirm on overwrite"
     descriptions[1]="Write template to './<specname>'"
-    descriptions[2]="Froce write to './<specname>'"
+    descriptions[2]="Force overwrite"
     descriptions[3]="Print help message"
-    declare -A descr_id_from_literal_id=([1]=0 [2]=1 [3]=2 [4]=3 [5]=1 [6]=0 [7]=3 [8]=2)
+    declare -A descr_id_from_literal_id=([1]=0 [2]=1 [3]=2 [4]=3)
     declare -A literal_transitions=()
-    literal_transitions[1]="([2]=2 [4]=1 [5]=2 [7]=1)"
-    literal_transitions[2]="([3]=3 [8]=3)"
-    literal_transitions[3]="([1]=1 [6]=1)"
+    literal_transitions[1]="([1]=2 [2]=2 [3]=2 [4]=2 [5]=2 [6]=2 [7]=2 [8]=2 [9]=3)"
+    literal_transitions[2]="([1]=2 [2]=2 [3]=2 [4]=2 [5]=2 [6]=2 [7]=2 [8]=2)"
     declare -A compadd_transitions=()
-    compadd_transitions[1]="([0]=1)"
+    compadd_transitions[1]="([0]=4)"
+    compadd_transitions[2]="([0]=4)"
+    compadd_transitions[3]="([0]=4)"
 
     declare state=1
     declare word_index=2
@@ -112,9 +113,9 @@ _template () {
         return 1
     done
 
-    declare -A literal_transitions_level_0=()
-    declare -A literal_transitions_level_1=([1]="2 4 5 7" [2]="3 8" [3]="1 6")
-    declare -A compadd_commands_level_0=([1]="0")
+    declare -A literal_transitions_level_0=([1]="1 2 3 4" [2]="1 2 3 4")
+    declare -A literal_transitions_level_1=([1]="5 6 7 8 9" [2]="5 6 7 8")
+    declare -A compadd_commands_level_0=([1]="0" [2]="0" [3]="0")
     declare -A compadd_commands_level_1=()
     declare max_fallback_level=1
 

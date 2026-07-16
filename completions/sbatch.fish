@@ -2,7 +2,7 @@
 
 function _sbatch_cmd_0
     set 1 $argv[1]
-    sacctmgr show account -nP format=account
+    __fish_complete_directories "$1"
 end
 
 function _sbatch_cmd_1
@@ -12,47 +12,47 @@ end
 
 function _sbatch_cmd_2
     set 1 $argv[1]
-    squeue -u $USER -ho '%A'
+    __fish_complete_command
 end
 
 function _sbatch_cmd_3
     set 1 $argv[1]
-    __fish_complete_directories "$1"
+    sacctmgr show account -nP format=account
 end
 
 function _sbatch_cmd_4
     set 1 $argv[1]
-    sinfo -ho "%G" | sed 's/([^)]*)//g' | tr ':' '\n' | grep -v '^[0-9]' | sort -u
+    squeue --me -ho '%A'
 end
 
 function _sbatch_cmd_5
     set 1 $argv[1]
-    scontrol show lic
+    sinfo -ho '%G' | sed 's/([^)]*)//g' | tr ':' '\n' | grep -v '^[0-9]' | sort -u
 end
 
 function _sbatch_cmd_6
     set 1 $argv[1]
-    sacctmgr show cluster -nP format=clusters
+    scontrol show lic
 end
 
 function _sbatch_cmd_7
     set 1 $argv[1]
-    sacctmgr show user -nP format=user
+    sacctmgr show cluster -nP format=clusters
 end
 
 function _sbatch_cmd_8
     set 1 $argv[1]
-    sinfo -ho %P
+    sacctmgr show user -nP format=user
 end
 
 function _sbatch_cmd_9
     set 1 $argv[1]
-    sacctmgr show qos -nP format=name
+    sinfo -ho '%P'
 end
 
 function _sbatch_cmd_10
     set 1 $argv[1]
-    __fish_complete_command
+    sacctmgr show qos -nP format=name
 end
 
 function _sbatch_cmd_11
@@ -70,75 +70,49 @@ function _sbatch_cmd_13
     sinfo -ho %n
 end
 
-function _sbatch_subword_54
-    set --global subword_literals ":0" ","
+function _sbatch_subword_49
+    set --global subword_literals ","
     set --global subword_descrs
     set --global subword_descr_literal_ids 
     set --global subword_descr_ids 
     set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[2] "2"
+    set --global subword_literal_transitions_inputs[2] "1"
+    set --global subword_literal_transitions_tos[2] "1"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[1] "6,2"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 
+    set --global subword_literal_inputs_level_0 
+    set --global subword_literal_froms_level_1 2
+    set --global subword_literal_inputs_level_1 "1"
+    set --global subword_command_froms_level_0 1
+    set --global subword_commands_level_0 "6"
+    set --global subword_command_froms_level_1 
+    set --global subword_commands_level_1 
+    set --global subword_max_fallback_level 1
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_50
+    set --global subword_literals "seconds" "minutes" "+count" "weeks" "hours" "days" "now"
+    set --global subword_descrs
+    set --global subword_descr_literal_ids 
+    set --global subword_descr_ids 
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "7"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "3"
     set --global subword_literal_transitions_tos[2] "3"
-    set --global subword_literal_transitions_inputs[4] "1 2"
-    set --global subword_literal_transitions_tos[4] "2 3"
+    set --global subword_literal_transitions_inputs[3] "1 2 4 5 6"
+    set --global subword_literal_transitions_tos[3] "4 4 4 4 4"
     set --global subword_command_transitions
-    set --global subword_command_transitions[1] "5,2"
-    set --global subword_command_transitions[3] "5,4"
-    set --global subword_literal_froms_level_0 2 4
-    set --global subword_literal_inputs_level_0 "2" "1 2"
-    set --global subword_command_froms_level_0 1 3
-    set --global subword_commands_level_0 "5" "5"
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_3
-    set --global subword_literals "YYYY-MM-DD" "MM/DD/YY" "--begin=" "seconds" "minutes" "THH:MM" "MMDDYY" "weeks" "hours" "HH:MM" "days" "now" ":SS" "+1"
-    set --global subword_descrs
-    set --global subword_descrs[1] "defer job until HH:MM MM/DD/YY"
-    set --global subword_descr_literal_ids 3
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "3"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "1 2 7 10 12"
-    set --global subword_literal_transitions_tos[2] "6 5 5 4 3"
-    set --global subword_literal_transitions_inputs[3] "14"
-    set --global subword_literal_transitions_tos[3] "7"
-    set --global subword_literal_transitions_inputs[4] "13"
-    set --global subword_literal_transitions_tos[4] "5"
-    set --global subword_literal_transitions_inputs[6] "6"
-    set --global subword_literal_transitions_tos[6] "4"
-    set --global subword_literal_transitions_inputs[7] "4 5 8 9 11"
-    set --global subword_literal_transitions_tos[7] "5 5 5 5 5"
-    set --global subword_command_transitions
-    set --global subword_literal_froms_level_0 1 2 3 4 6 7
-    set --global subword_literal_inputs_level_0 "3" "1 2 7 10 12" "14" "13" "6" "4 5 8 9 11"
-    set --global subword_command_froms_level_0 
-    set --global subword_commands_level_0 
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_26
-    set --global subword_literals "filesystem" "--profile=" "network" "energy" "task" "none" "all" ","
-    set --global subword_descrs
-    set --global subword_descrs[1] "enable acct_gather_profile for detailed data value is all or none or any combination of energy, lustre, network or task"
-    set --global subword_descr_literal_ids 2
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "2"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "1 3 4 5 6 7 8"
-    set --global subword_literal_transitions_tos[2] "3 3 3 3 3 3 4"
-    set --global subword_literal_transitions_inputs[4] "1 3 4 5"
-    set --global subword_literal_transitions_tos[4] "5 5 5 5"
-    set --global subword_literal_transitions_inputs[5] "8"
-    set --global subword_literal_transitions_tos[5] "4"
-    set --global subword_command_transitions
-    set --global subword_literal_froms_level_0 1 2
-    set --global subword_literal_inputs_level_0 "2" "1 3 4 5 6 7"
-    set --global subword_literal_froms_level_1 2 4 5
-    set --global subword_literal_inputs_level_1 "8" "1 3 4 5" "8"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 
+    set --global subword_literal_inputs_level_0 
+    set --global subword_literal_froms_level_1 1 2 3
+    set --global subword_literal_inputs_level_1 "7" "3" "1 2 4 5 6"
     set --global subword_command_froms_level_0 
     set --global subword_commands_level_0 
     set --global subword_command_froms_level_1 
@@ -147,7 +121,98 @@ function _sbatch_subword_26
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
+function _sbatch_subword_18
+    set --global subword_literals "--dependency=" "afternotok" "aftercorr" "afterany" "afterok" "after" ":" ","
+    set --global subword_descrs
+    set --global subword_descrs[1] "defer job until condition on jobid is satisfied"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "2 3 4 5 6"
+    set --global subword_literal_transitions_tos[2] "3 3 3 3 3"
+    set --global subword_literal_transitions_inputs[3] "7"
+    set --global subword_literal_transitions_tos[3] "4"
+    set --global subword_literal_transitions_inputs[5] "7 8"
+    set --global subword_literal_transitions_tos[5] "4 2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[4] "4,5"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1 2 3 5
+    set --global subword_literal_inputs_level_0 "1" "2 3 4 5 6" "7" "7 8"
+    set --global subword_command_froms_level_0 4
+    set --global subword_commands_level_0 "4"
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_shape_3
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_star_transitions_from 2
+    set --global subword_star_transitions_to 3
+    set --global subword_literal_froms_level_0 
+    set --global subword_literal_inputs_level_0 
+    set --global subword_literal_froms_level_1 1
+    set --global subword_literal_inputs_level_1 "1"
+    set --global subword_command_froms_level_0 
+    set --global subword_commands_level_0 
+    set --global subword_command_froms_level_1 
+    set --global subword_commands_level_1 
+    set --global subword_max_fallback_level 1
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_39
+    set --global subword_literals "--mem="
+    set --global subword_descrs
+    set --global subword_descrs[1] "minimum amount of real memory"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_3 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_46
+    set --global subword_literals "--cpus-per-gpu="
+    set --global subword_descrs
+    set --global subword_descrs[1] "number of CPUs required per allocated GPU"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_3 "$argv[1]" "$argv[2]"
+end
+
 function _sbatch_subword_40
+    set --global subword_literals "--mem-per-cpu="
+    set --global subword_descrs
+    set --global subword_descrs[1] "maximum amount of real memory per allocated cpu required by the job. --mem >= --mem-per-cpu if --mem is specified."
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_3 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_41
+    set --global subword_literals "--mem-per-gpu="
+    set --global subword_descrs
+    set --global subword_descrs[1] "real memory required per allocated GPU"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_3 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_43
+    set --global subword_literals "--tmp="
+    set --global subword_descrs
+    set --global subword_descrs[1] "minimum amount of temporary disk"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_3 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_42
     set --global subword_literals "--reservation="
     set --global subword_descrs
     set --global subword_descrs[1] "allocate resources from named reservation"
@@ -158,6 +223,8 @@ function _sbatch_subword_40
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_command_transitions
     set --global subword_command_transitions[2] "12,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 
     set --global subword_literal_inputs_level_0 
     set --global subword_literal_froms_level_1 1
@@ -170,7 +237,7 @@ function _sbatch_subword_40
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_10
+function _sbatch_subword_4
     set --global subword_literals "--export=" ",ENVVAR" "NONE" "NIL" "ALL"
     set --global subword_descrs
     set --global subword_descrs[1] "specify environment variables to export"
@@ -184,6 +251,8 @@ function _sbatch_subword_10
     set --global subword_literal_transitions_inputs[3] "2"
     set --global subword_literal_transitions_tos[3] "4"
     set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 1 2 3
     set --global subword_literal_inputs_level_0 "1" "3 4 5" "2"
     set --global subword_command_froms_level_0 
@@ -192,7 +261,28 @@ function _sbatch_subword_10
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_11
+function _sbatch_subword_34
+    set --global subword_literals "--qos="
+    set --global subword_descrs
+    set --global subword_descrs[1] "quality of service"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "10,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "10"
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_20
     set --global subword_literals "--gres="
     set --global subword_descrs
     set --global subword_descrs[1] "required generic resources"
@@ -202,92 +292,30 @@ function _sbatch_subword_11
     set --global subword_literal_transitions_inputs[1] "1"
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_command_transitions
-    set --global subword_command_transitions[2] "4,3"
+    set --global subword_command_transitions[2] "5,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 1
     set --global subword_literal_inputs_level_0 "1"
     set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "4"
+    set --global subword_commands_level_0 "5"
     set --global subword_max_fallback_level 0
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_33
-    set --global subword_literals "--wrap="
+function _sbatch_subword_51
+    set --global subword_literals "HH:MM" ":SS"
     set --global subword_descrs
-    set --global subword_descrs[1] "wrap command string in a sh script and submit"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "10,3"
-    set --global subword_literal_froms_level_0 1
-    set --global subword_literal_inputs_level_0 "1"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "10"
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_30
-    set --global subword_literals "SIGWAITING" "SIGVTALRM" "--signal=" "SIGWINCH" "SIGXFSZ" "SIGXCPU" "SIGUSR2" "SIGUSR1" "SIGTTOU" "SIGTTIN" "SIGTSTP" "SIGTRAP" "SIGTERM" "SIGSTOP" "SIGSEGV" "SIGQUIT" "SIGPROF" "SIGPOLL" "SIGPIPE" "SIGKILL" "SIGCONT" "SIGCHLD" "SIGALRM" "SIGABRT" "SIGURG" "SIGSYS" "SIGPWR" "SIGLWP" "SIGIOT" "SIGINT" "SIGILL" "SIGHUP" "SIGFPE" "SIGEMT" "SIGCLD" "SIGBUS" "SIGAIO" "SIGIO" "R:" "60" "34" "33" "32" "31" "30" "29" "28" "27" "26" "25" "24" "23" "22" "21" "20" "19" "18" "17" "16" "15" "14" "13" "12" "11" "10" "s" "m" "h" "9" "8" "7" "6" "5" "4" "3" "2" "1"
-    set --global subword_descrs
-    set --global subword_descrs[1] "send signal when time limit within time seconds"
-    set --global subword_descr_literal_ids 3
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "3"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "1 2 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 69 70 71 72 73 74 75 76 77"
-    set --global subword_literal_transitions_tos[2] "4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4"
-    set --global subword_literal_transitions_inputs[3] "1 2 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 69 70 71 72 73 74 75 76 77"
-    set --global subword_literal_transitions_tos[3] "4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4"
-    set --global subword_literal_transitions_inputs[4] "40"
-    set --global subword_literal_transitions_tos[4] "5"
-    set --global subword_literal_transitions_inputs[5] "66 67 68"
-    set --global subword_literal_transitions_tos[5] "6 6 6"
-    set --global subword_command_transitions
-    set --global subword_literal_froms_level_0 1 2 3 4 5
-    set --global subword_literal_inputs_level_0 "3" "1 2 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 69 70 71 72 73 74 75 76 77" "1 2 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 69 70 71 72 73 74 75 76 77" "40" "66 67 68"
-    set --global subword_command_froms_level_0 
-    set --global subword_commands_level_0 
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_36
-    set --global subword_literals "--constraint=" ","
-    set --global subword_descrs
-    set --global subword_descrs[1] "specify a list of constraints"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[3] "2"
-    set --global subword_literal_transitions_tos[3] "2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "11,3"
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1 3
-    set --global subword_literal_inputs_level_1 "1" "2"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "11"
-    set --global subword_command_froms_level_1 
-    set --global subword_commands_level_1 
-    set --global subword_max_fallback_level 1
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_shape_9
+    set --global subword_descr_literal_ids 
+    set --global subword_descr_ids 
     set --global subword_literal_transitions_inputs
     set --global subword_literal_transitions_inputs[1] "1"
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_literal_transitions_inputs[2] "2"
     set --global subword_literal_transitions_tos[2] "3"
     set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 
     set --global subword_literal_inputs_level_0 
     set --global subword_literal_froms_level_1 1 2
@@ -300,53 +328,59 @@ function _sbatch_subword_shape_9
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_39
-    set --global subword_literals "--mem-per-gpu=" "64G"
+function _sbatch_subword_shape_9
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_star_transitions_from 2
+    set --global subword_star_transitions_to 3
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
+    set --global subword_command_froms_level_0 
+    set --global subword_commands_level_0 
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_1
+    set --global subword_literals "--array="
     set --global subword_descrs
-    set --global subword_descrs[1] "real memory required per allocated GPU"
+    set --global subword_descrs[1] "job array index values"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
     _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_37
-    set --global subword_literals "--mem=" "128G"
+function _sbatch_subword_29
+    set --global subword_literals "--ntasks-per-node="
     set --global subword_descrs
-    set --global subword_descrs[1] "minimum amount of real memory"
+    set --global subword_descrs[1] "number of tasks to invoke on each node"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
     _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_46
-    set --global subword_literals "--cpus-per-gpu=" "8"
+function _sbatch_subword_30
+    set --global subword_literals "--nodes="
     set --global subword_descrs
-    set --global subword_descrs[1] "number of CPUs required per allocated GPU"
+    set --global subword_descrs[1] "number of nodes on which to run (N = min[-max])"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
     _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_41
-    set --global subword_literals "--tmp=" "10G"
+function _sbatch_subword_14
+    set --global subword_literals "--cpus-per-task="
     set --global subword_descrs
-    set --global subword_descrs[1] "minimum amount of temporary disk"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_44
-    set --global subword_literals "--exclusive" "=user"
-    set --global subword_descrs
-    set --global subword_descrs[1] "allocate nodes in exclusive mode when cpu consumable resource is enabled"
+    set --global subword_descrs[1] "number of cpus required per task"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
     _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
 end
 
 function _sbatch_subword_47
-    set --global subword_literals "--gpus=" "1"
+    set --global subword_literals "--gpus="
     set --global subword_descrs
     set --global subword_descrs[1] "count of GPUs required for the job"
     set --global subword_descr_literal_ids 1
@@ -354,116 +388,55 @@ function _sbatch_subword_47
     _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_38
-    set --global subword_literals "--mem-per-cpu=" "8G"
+function _sbatch_subword_15
+    set --global subword_literals "--comment="
     set --global subword_descrs
-    set --global subword_descrs[1] "maximum amount of real memory per allocated cpu required by the job. --mem >= --mem-per-cpu if --mem is specified."
+    set --global subword_descrs[1] "arbitrary comment"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
     _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_45
-    set --global subword_literals "--exclusive" "=mcs"
+function _sbatch_subword_17
+    set --global subword_literals "--container-id="
     set --global subword_descrs
-    set --global subword_descrs[1] "allocate nodes in exclusive mode when cpu consumable resource is enabled and mcs plugin is enabled"
+    set --global subword_descrs[1] "OCI container ID"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
     _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_34
-    set --global subword_literals "--cluster-constraint=" "!"
-    set --global subword_descrs
-    set --global subword_descr_literal_ids 
-    set --global subword_descr_ids 
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "2"
-    set --global subword_literal_transitions_tos[2] "3"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "11,4"
-    set --global subword_command_transitions[3] "11,4"
-    set --global subword_literal_froms_level_0 1 2
-    set --global subword_literal_inputs_level_0 "1" "2"
-    set --global subword_command_froms_level_0 2 3
-    set --global subword_commands_level_0 "11" "11"
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_48
-    set --global subword_literals "seconds" "minutes" "weeks" "hours" "days" "now" "+1"
-    set --global subword_descrs
-    set --global subword_descr_literal_ids 
-    set --global subword_descr_ids 
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "6"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "7"
-    set --global subword_literal_transitions_tos[2] "3"
-    set --global subword_literal_transitions_inputs[3] "1 2 3 4 5"
-    set --global subword_literal_transitions_tos[3] "4 4 4 4 4"
-    set --global subword_command_transitions
-    set --global subword_literal_froms_level_0 1 2 3
-    set --global subword_literal_inputs_level_0 "6" "7" "1 2 3 4 5"
-    set --global subword_command_froms_level_0 
-    set --global subword_commands_level_0 
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_50
-    set --global subword_literals "YYYY-MM-DD" "THH:MM" ":SS"
-    set --global subword_descrs
-    set --global subword_descr_literal_ids 
-    set --global subword_descr_ids 
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "2"
-    set --global subword_literal_transitions_tos[2] "3"
-    set --global subword_literal_transitions_inputs[3] "3"
-    set --global subword_literal_transitions_tos[3] "4"
-    set --global subword_command_transitions
-    set --global subword_literal_froms_level_0 1 2 3
-    set --global subword_literal_inputs_level_0 "1" "2" "3"
-    set --global subword_command_froms_level_0 
-    set --global subword_commands_level_0 
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_6
-    set --global subword_literals "--dependency=" "afternotok" "aftercorr" "afterany" "afterok" "after" ":" ","
-    set --global subword_descrs
-    set --global subword_descrs[1] "defer job until condition on jobid is satisfied"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "2 3 4 5 6 8"
-    set --global subword_literal_transitions_tos[2] "3 3 3 3 3 2"
-    set --global subword_literal_transitions_inputs[3] "7"
-    set --global subword_literal_transitions_tos[3] "4"
-    set --global subword_literal_transitions_inputs[5] "7 8"
-    set --global subword_literal_transitions_tos[5] "4 2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[4] "2,5"
-    set --global subword_literal_froms_level_0 1 2 3 5
-    set --global subword_literal_inputs_level_0 "1" "2 3 4 5 6 8" "7" "7 8"
-    set --global subword_command_froms_level_0 4
-    set --global subword_commands_level_0 "2"
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
 function _sbatch_subword_8
-    set --global subword_literals "--chdir="
+    set --global subword_literals "--wait="
     set --global subword_descrs
-    set --global subword_descrs[1] "set working directory for batch script"
+    set --global subword_descrs[1] "wait for completion of submitted job"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_32
+    set --global subword_literals "--priority="
+    set --global subword_descrs
+    set --global subword_descrs[1] "set the priority of the job to value"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_27
+    set --global subword_literals "--ntasks="
+    set --global subword_descrs
+    set --global subword_descrs[1] "number of tasks to run"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_9 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_12
+    set --global subword_literals "--account="
+    set --global subword_descrs
+    set --global subword_descrs[1] "charge job to specified account"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
     set --global subword_literal_transitions_inputs
@@ -471,6 +444,8 @@ function _sbatch_subword_8
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_command_transitions
     set --global subword_command_transitions[2] "3,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 1
     set --global subword_literal_inputs_level_0 "1"
     set --global subword_command_froms_level_0 2
@@ -479,67 +454,7 @@ function _sbatch_subword_8
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_shape_15
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "2 3 7 10 12"
-    set --global subword_literal_transitions_tos[2] "6 5 5 4 3"
-    set --global subword_literal_transitions_inputs[3] "14"
-    set --global subword_literal_transitions_tos[3] "7"
-    set --global subword_literal_transitions_inputs[4] "13"
-    set --global subword_literal_transitions_tos[4] "5"
-    set --global subword_literal_transitions_inputs[6] "6"
-    set --global subword_literal_transitions_tos[6] "4"
-    set --global subword_literal_transitions_inputs[7] "4 5 8 9 11"
-    set --global subword_literal_transitions_tos[7] "5 5 5 5 5"
-    set --global subword_command_transitions
-    set --global subword_literal_froms_level_0 1 2 3 4 6 7
-    set --global subword_literal_inputs_level_0 "1" "2 3 7 10 12" "14" "13" "6" "4 5 8 9 11"
-    set --global subword_command_froms_level_0 
-    set --global subword_commands_level_0 
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_7
-    set --global subword_literals "--deadline=" "YYYY-MM-DD" "MM/DD/YY" "seconds" "minutes" "THH:MM" "MMDDYY" "weeks" "hours" "HH:MM" "days" "now" ":SS" "+1"
-    set --global subword_descrs
-    set --global subword_descrs[1] "remove the job if no ending possible before this deadline (start > (deadline - time[-min]))"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _sbatch_subword_shape_15 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_32
-    set --global subword_literals "--time-min=" "YYYY-MM-DD" "MM/DD/YY" "seconds" "minutes" "THH:MM" "MMDDYY" "weeks" "hours" "HH:MM" "days" "now" ":SS" "+1"
-    set --global subword_descrs
-    set --global subword_descrs[1] "minimum time limit (if distinct)"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _sbatch_subword_shape_15 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_15
-    set --global subword_literals "--clusters="
-    set --global subword_descrs
-    set --global subword_descrs[1] "Comma separated list of clusters to issue"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "6,3"
-    set --global subword_literal_froms_level_0 1
-    set --global subword_literal_inputs_level_0 "1"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "6"
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_16
+function _sbatch_subword_23
     set --global subword_literals "--distribution=" "arbitrary" "cyclic" "plane" "block"
     set --global subword_descrs
     set --global subword_descrs[1] "distribution method for processes to nodes"
@@ -551,6 +466,8 @@ function _sbatch_subword_16
     set --global subword_literal_transitions_inputs[2] "2 3 4 5"
     set --global subword_literal_transitions_tos[2] "3 3 3 3"
     set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 1 2
     set --global subword_literal_inputs_level_0 "1" "2 3 4 5"
     set --global subword_command_froms_level_0 
@@ -559,7 +476,7 @@ function _sbatch_subword_16
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_17
+function _sbatch_subword_25
     set --global subword_literals "TIME_LIMIT_90" "TIME_LIMIT_80" "TIME_LIMIT_50" "--mail-type=" "ARRAY_TASKS" "TIME_LIMIT" "STAGE_OUT" "REQUEUE" "BEGIN" "NONE" "FAIL" "END" "ALL"
     set --global subword_descrs
     set --global subword_descrs[1] "notify on state change: BEGIN, END, FAIL or ALL"
@@ -571,6 +488,8 @@ function _sbatch_subword_17
     set --global subword_literal_transitions_inputs[2] "1 2 3 5 6 7 8 9 10 11 12 13"
     set --global subword_literal_transitions_tos[2] "3 3 3 3 3 3 3 3 3 3 3 3"
     set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 1 2
     set --global subword_literal_inputs_level_0 "4" "1 2 3 5 6 7 8 9 10 11 12 13"
     set --global subword_command_froms_level_0 
@@ -585,120 +504,220 @@ function _sbatch_subword_53
     set --global subword_descr_literal_ids 
     set --global subword_descr_ids 
     set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1 2 3 4 5 7"
-    set --global subword_literal_transitions_tos[1] "2 2 2 2 2 1"
+    set --global subword_literal_transitions_inputs[1] "1 2 3 4 5"
+    set --global subword_literal_transitions_tos[1] "2 2 2 2 2"
     set --global subword_literal_transitions_inputs[2] "6"
     set --global subword_literal_transitions_tos[2] "3"
     set --global subword_literal_transitions_inputs[4] "6 7"
     set --global subword_literal_transitions_tos[4] "3 1"
     set --global subword_command_transitions
-    set --global subword_command_transitions[3] "2,4"
-    set --global subword_literal_froms_level_0 1 2 4
-    set --global subword_literal_inputs_level_0 "1 2 3 4 5 7" "6" "6 7"
-    set --global subword_command_froms_level_0 3
-    set --global subword_commands_level_0 "2"
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_14
-    set --global subword_literals "--licenses=" ":0" ","
-    set --global subword_descrs
-    set --global subword_descrs[1] "required license, comma separated"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[3] "3"
-    set --global subword_literal_transitions_tos[3] "4"
-    set --global subword_literal_transitions_inputs[5] "2 3"
-    set --global subword_literal_transitions_tos[5] "3 4"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "5,3"
-    set --global subword_command_transitions[4] "5,5"
-    set --global subword_literal_froms_level_0 1 3 5
-    set --global subword_literal_inputs_level_0 "1" "3" "2 3"
-    set --global subword_command_froms_level_0 2 4
-    set --global subword_commands_level_0 "5" "5"
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_35
-    set --global subword_literals ","
-    set --global subword_descrs
-    set --global subword_descrs[1] "specify a list of cluster constraints"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "11,3"
+    set --global subword_command_transitions[3] "4,4"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 
     set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1
-    set --global subword_literal_inputs_level_1 "1"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "11"
+    set --global subword_literal_froms_level_1 1 2 4
+    set --global subword_literal_inputs_level_1 "1 2 3 4 5" "6" "6 7"
+    set --global subword_command_froms_level_0 3
+    set --global subword_commands_level_0 "4"
     set --global subword_command_froms_level_1 
     set --global subword_commands_level_1 
     set --global subword_max_fallback_level 1
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_18
-    set --global subword_literals "--mail-user="
+function _sbatch_subword_35
+    set --global subword_literals "YYYY-MM-DD" "seconds" "minutes" "--time=" "THH:MM" "+count" "weeks" "hours" "HH:MM" "days" "now" ":SS"
     set --global subword_descrs
-    set --global subword_descrs[1] "who to send email notification for job state changes"
-    set --global subword_descr_literal_ids 1
+    set --global subword_descrs[1] "time limit"
+    set --global subword_descr_literal_ids 4
     set --global subword_descr_ids 1
     set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_inputs[1] "4"
     set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "1 9 11"
+    set --global subword_literal_transitions_tos[2] "5 4 3"
+    set --global subword_literal_transitions_inputs[3] "6"
+    set --global subword_literal_transitions_tos[3] "6"
+    set --global subword_literal_transitions_inputs[4] "12"
+    set --global subword_literal_transitions_tos[4] "7"
+    set --global subword_literal_transitions_inputs[5] "5"
+    set --global subword_literal_transitions_tos[5] "4"
+    set --global subword_literal_transitions_inputs[6] "2 3 7 8 10"
+    set --global subword_literal_transitions_tos[6] "7 7 7 7 7"
     set --global subword_command_transitions
-    set --global subword_command_transitions[2] "7,3"
-    set --global subword_literal_froms_level_0 1
-    set --global subword_literal_inputs_level_0 "1"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "7"
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_1
-    set --global subword_literals "--array=0" ":" "1" "0" "-" "," "%"
-    set --global subword_descrs
-    set --global subword_descrs[1] "job array index values"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "5 6"
-    set --global subword_literal_transitions_tos[2] "3 3"
-    set --global subword_literal_transitions_inputs[3] "4"
-    set --global subword_literal_transitions_tos[3] "4"
-    set --global subword_literal_transitions_inputs[4] "2 7"
-    set --global subword_literal_transitions_tos[4] "5 5"
-    set --global subword_literal_transitions_inputs[5] "3"
-    set --global subword_literal_transitions_tos[5] "6"
-    set --global subword_command_transitions
-    set --global subword_literal_froms_level_0 1 2 3 4 5
-    set --global subword_literal_inputs_level_0 "1" "5 6" "4" "2 7" "3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1 2 3 4 5 6
+    set --global subword_literal_inputs_level_0 "4" "1 9 11" "6" "12" "5" "2 3 7 8 10"
     set --global subword_command_froms_level_0 
     set --global subword_commands_level_0 
     set --global subword_max_fallback_level 0
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_shape_24
+function _sbatch_subword_shape_15
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "2 9 11"
+    set --global subword_literal_transitions_tos[2] "5 4 3"
+    set --global subword_literal_transitions_inputs[3] "6"
+    set --global subword_literal_transitions_tos[3] "6"
+    set --global subword_literal_transitions_inputs[4] "12"
+    set --global subword_literal_transitions_tos[4] "7"
+    set --global subword_literal_transitions_inputs[5] "5"
+    set --global subword_literal_transitions_tos[5] "4"
+    set --global subword_literal_transitions_inputs[6] "3 4 7 8 10"
+    set --global subword_literal_transitions_tos[6] "7 7 7 7 7"
+    set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1 2 3 4 5 6
+    set --global subword_literal_inputs_level_0 "1" "2 9 11" "6" "12" "5" "3 4 7 8 10"
+    set --global subword_command_froms_level_0 
+    set --global subword_commands_level_0 
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_36
+    set --global subword_literals "--time-min=" "YYYY-MM-DD" "seconds" "minutes" "THH:MM" "+count" "weeks" "hours" "HH:MM" "days" "now" ":SS"
+    set --global subword_descrs
+    set --global subword_descr_literal_ids 
+    set --global subword_descr_ids 
+    _sbatch_subword_shape_15 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_19
+    set --global subword_literals "--deadline=" "YYYY-MM-DD" "seconds" "minutes" "THH:MM" "+count" "weeks" "hours" "HH:MM" "days" "now" ":SS"
+    set --global subword_descrs
+    set --global subword_descrs[1] "remove the job if no ending possible before this deadline (start > (deadline - time[-min]))"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_15 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_28
+    set --global subword_literals "--nice" "="
+    set --global subword_descrs
+    set --global subword_descrs[1] "decrease scheduling priority by value"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "2"
+    set --global subword_literal_transitions_tos[2] "3"
+    set --global subword_command_transitions
+    set --global subword_star_transitions_from 3
+    set --global subword_star_transitions_to 4
+    set --global subword_literal_froms_level_0 1 2
+    set --global subword_literal_inputs_level_0 "1" "2"
+    set --global subword_command_froms_level_0 
+    set --global subword_commands_level_0 
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_33
+    set --global subword_literals "filesystem" "--profile=" "network" "energy" "task" "none" "all" ","
+    set --global subword_descrs
+    set --global subword_descrs[1] "enable acct_gather_profile for detailed data value is all or none or any combination of energy, lustre, network or task"
+    set --global subword_descr_literal_ids 2
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "2"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "1 3 4 5 6 7"
+    set --global subword_literal_transitions_tos[2] "4 4 4 4 3 3"
+    set --global subword_literal_transitions_inputs[4] "8"
+    set --global subword_literal_transitions_tos[4] "5"
+    set --global subword_literal_transitions_inputs[5] "1 3 4 5"
+    set --global subword_literal_transitions_tos[5] "4 4 4 4"
+    set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1 2 4 5
+    set --global subword_literal_inputs_level_0 "2" "1 3 4 5 6 7" "8" "1 3 4 5"
+    set --global subword_command_froms_level_0 
+    set --global subword_commands_level_0 
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_38
+    set --global subword_literals "--constraint=" ","
+    set --global subword_descrs
+    set --global subword_descrs[1] "specify a list of constraints"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[3] "2"
+    set --global subword_literal_transitions_tos[3] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "11,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1 3
+    set --global subword_literal_inputs_level_0 "1" "2"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "11"
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_shape_19
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[3] "2"
+    set --global subword_literal_transitions_tos[3] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "13,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1 3
+    set --global subword_literal_inputs_level_0 "1" "2"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "13"
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_44
+    set --global subword_literals "--nodelist=" ","
+    set --global subword_descrs
+    set --global subword_descrs[1] "request a specific list of hosts"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_19 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_45
+    set --global subword_literals "--exclude=" ","
+    set --global subword_descrs
+    set --global subword_descrs[1] "exclude a specific list of hosts"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_19 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_24
+    set --global subword_literals "--job-name="
+    set --global subword_descrs
+    set --global subword_descrs[1] "name of job"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
     set --global subword_literal_transitions_inputs
     set --global subword_literal_transitions_inputs[1] "1"
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_command_transitions
     set --global subword_command_transitions[2] "1,3"
+    set --global subword_star_transitions_from 2
+    set --global subword_star_transitions_to 3
     set --global subword_literal_froms_level_0 1
     set --global subword_literal_inputs_level_0 "1"
     set --global subword_command_froms_level_0 2
@@ -707,52 +726,107 @@ function _sbatch_subword_shape_24
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_23
-    set --global subword_literals "--output="
+function _sbatch_subword_52
+    set --global subword_literals "YYYY-MM-DD" "THH:MM" ":SS"
     set --global subword_descrs
-    set --global subword_descrs[1] "file for batch script's standard output"
+    set --global subword_descr_literal_ids 
+    set --global subword_descr_ids 
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "2"
+    set --global subword_literal_transitions_tos[2] "3"
+    set --global subword_literal_transitions_inputs[3] "3"
+    set --global subword_literal_transitions_tos[3] "4"
+    set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 
+    set --global subword_literal_inputs_level_0 
+    set --global subword_literal_froms_level_1 1 2 3
+    set --global subword_literal_inputs_level_1 "1" "2" "3"
+    set --global subword_command_froms_level_0 
+    set --global subword_commands_level_0 
+    set --global subword_command_froms_level_1 
+    set --global subword_commands_level_1 
+    set --global subword_max_fallback_level 1
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_22
+    set --global subword_literals "--clusters="
+    set --global subword_descrs
+    set --global subword_descrs[1] "Comma separated list of clusters to issue"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
-    _sbatch_subword_shape_24 "$argv[1]" "$argv[2]"
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "7,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "7"
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_shape_23
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "1,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "1"
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
 function _sbatch_subword_5
-    set --global subword_literals "--container="
-    set --global subword_descrs
-    set --global subword_descrs[1] "Path to OCI container bundle"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _sbatch_subword_shape_24 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_12
     set --global subword_literals "--input="
     set --global subword_descrs
     set --global subword_descrs[1] "file for batch script's standard input"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
-    _sbatch_subword_shape_24 "$argv[1]" "$argv[2]"
+    _sbatch_subword_shape_23 "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_9
+function _sbatch_subword_3
     set --global subword_literals "--error="
     set --global subword_descrs
     set --global subword_descrs[1] "file for batch script's standard error"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
-    _sbatch_subword_shape_24 "$argv[1]" "$argv[2]"
+    _sbatch_subword_shape_23 "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_13
-    set --global subword_literals "--job-name="
+function _sbatch_subword_16
+    set --global subword_literals "--container="
     set --global subword_descrs
-    set --global subword_descrs[1] "name of job"
+    set --global subword_descrs[1] "Path to OCI container bundle"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
-    _sbatch_subword_shape_24 "$argv[1]" "$argv[2]"
+    _sbatch_subword_shape_23 "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_51
+function _sbatch_subword_6
+    set --global subword_literals "--output="
+    set --global subword_descrs
+    set --global subword_descrs[1] "file for batch script's standard output"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    _sbatch_subword_shape_23 "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_54
     set --global subword_literals ","
     set --global subword_descrs
     set --global subword_descr_literal_ids 
@@ -762,6 +836,8 @@ function _sbatch_subword_51
     set --global subword_literal_transitions_tos[2] "1"
     set --global subword_command_transitions
     set --global subword_command_transitions[1] "11,2"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 
     set --global subword_literal_inputs_level_0 
     set --global subword_literal_froms_level_1 2
@@ -774,10 +850,10 @@ function _sbatch_subword_51
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_24
-    set --global subword_literals "--partition="
+function _sbatch_subword_26
+    set --global subword_literals "--mail-user="
     set --global subword_descrs
-    set --global subword_descrs[1] "partition requested"
+    set --global subword_descrs[1] "who to send email notification for job state changes"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
     set --global subword_literal_transitions_inputs
@@ -785,6 +861,8 @@ function _sbatch_subword_24
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_command_transitions
     set --global subword_command_transitions[2] "8,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 1
     set --global subword_literal_inputs_level_0 "1"
     set --global subword_command_froms_level_0 2
@@ -793,7 +871,7 @@ function _sbatch_subword_24
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_52
+function _sbatch_subword_48
     set --global subword_literals ","
     set --global subword_descrs
     set --global subword_descr_literal_ids 
@@ -803,6 +881,8 @@ function _sbatch_subword_52
     set --global subword_literal_transitions_tos[2] "1"
     set --global subword_command_transitions
     set --global subword_command_transitions[1] "13,2"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 
     set --global subword_literal_inputs_level_0 
     set --global subword_literal_froms_level_1 2
@@ -815,10 +895,33 @@ function _sbatch_subword_52
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_28
-    set --global subword_literals "--qos="
+function _sbatch_subword_21
+    set --global subword_literals "--licenses=" ","
     set --global subword_descrs
-    set --global subword_descrs[1] "quality of service"
+    set --global subword_descrs[1] "required license, comma separated"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[3] "2"
+    set --global subword_literal_transitions_tos[3] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "6,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1 3
+    set --global subword_literal_inputs_level_0 "1" "2"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "6"
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_31
+    set --global subword_literals "--partition="
+    set --global subword_descrs
+    set --global subword_descrs[1] "partition requested"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
     set --global subword_literal_transitions_inputs
@@ -826,6 +929,8 @@ function _sbatch_subword_28
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_command_transitions
     set --global subword_command_transitions[2] "9,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 1
     set --global subword_literal_inputs_level_0 "1"
     set --global subword_command_froms_level_0 2
@@ -834,13 +939,50 @@ function _sbatch_subword_28
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_shape_29
+function _sbatch_subword_37
+    set --global subword_literals "--cluster-constraint=" "," "!"
+    set --global subword_descrs
+    set --global subword_descrs[1] "specify a list of cluster constraints"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "3"
+    set --global subword_literal_transitions_tos[2] "3"
+    set --global subword_literal_transitions_inputs[4] "2"
+    set --global subword_literal_transitions_tos[4] "3"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "11,4"
+    set --global subword_command_transitions[3] "11,4"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 
+    set --global subword_literal_inputs_level_0 
+    set --global subword_literal_froms_level_1 1 2 4
+    set --global subword_literal_inputs_level_1 "1" "3" "2"
+    set --global subword_command_froms_level_0 2 3
+    set --global subword_commands_level_0 "11" "11"
+    set --global subword_command_froms_level_1 
+    set --global subword_commands_level_1 
+    set --global subword_max_fallback_level 1
+    _sbatch_subword "$argv[1]" "$argv[2]"
+end
+
+function _sbatch_subword_10
+    set --global subword_literals "--exclusive" "=user"
+    set --global subword_descrs
+    set --global subword_descrs[1] "allocate nodes in exclusive mode when cpu consumable resource is enabled"
+    set --global subword_descr_literal_ids 1
+    set --global subword_descr_ids 1
     set --global subword_literal_transitions_inputs
     set --global subword_literal_transitions_inputs[1] "1"
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_literal_transitions_inputs[2] "2"
     set --global subword_literal_transitions_tos[2] "3"
     set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 1 2
     set --global subword_literal_inputs_level_0 "1" "2"
     set --global subword_command_froms_level_0 
@@ -849,81 +991,83 @@ function _sbatch_subword_shape_29
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_19
-    set --global subword_literals "--ntasks=" "1"
+function _sbatch_subword_9
+    set --global subword_literals "--wrap="
     set --global subword_descrs
-    set --global subword_descrs[1] "number of tasks to run"
+    set --global subword_descrs[1] "wrap command string in a sh script and submit"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
-    _sbatch_subword_shape_29 "$argv[1]" "$argv[2]"
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_command_transitions
+    set --global subword_command_transitions[2] "2,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1
+    set --global subword_literal_inputs_level_0 "1"
+    set --global subword_command_froms_level_0 2
+    set --global subword_commands_level_0 "2"
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_20
-    set --global subword_literals "--nice" "=0"
+function _sbatch_subword_11
+    set --global subword_literals "--exclusive" "=mcs"
     set --global subword_descrs
-    set --global subword_descrs[1] "decrease scheduling priority by value"
+    set --global subword_descrs[1] "allocate nodes in exclusive mode when cpu consumable resource is enabled and mcs plugin is enabled"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
-    _sbatch_subword_shape_29 "$argv[1]" "$argv[2]"
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "1"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "2"
+    set --global subword_literal_transitions_tos[2] "3"
+    set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1 2
+    set --global subword_literal_inputs_level_0 "1" "2"
+    set --global subword_command_froms_level_0 
+    set --global subword_commands_level_0 
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_49
-    set --global subword_literals "HH:MM" ":SS"
+function _sbatch_subword_13
+    set --global subword_literals "YYYY-MM-DD" "--begin=" "seconds" "minutes" "THH:MM" "+count" "weeks" "hours" "HH:MM" "days" "now" ":SS"
     set --global subword_descrs
-    set --global subword_descr_literal_ids 
-    set --global subword_descr_ids 
-    _sbatch_subword_shape_29 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_21
-    set --global subword_literals "--ntasks-per-node=" "1"
-    set --global subword_descrs
-    set --global subword_descrs[1] "number of tasks to invoke on each node"
-    set --global subword_descr_literal_ids 1
+    set --global subword_descrs[1] "defer job until HH:MM MM/DD/YY"
+    set --global subword_descr_literal_ids 2
     set --global subword_descr_ids 1
-    _sbatch_subword_shape_29 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_4
-    set --global subword_literals "--cpus-per-task=" "8"
-    set --global subword_descrs
-    set --global subword_descrs[1] "number of cpus required per task"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _sbatch_subword_shape_29 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_22
-    set --global subword_literals "--nodes=" "1"
-    set --global subword_descrs
-    set --global subword_descrs[1] "number of nodes on which to run (N = min[-max])"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _sbatch_subword_shape_29 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_25
-    set --global subword_literals "--priority=" "0"
-    set --global subword_descrs
-    set --global subword_descrs[1] "set the priority of the job to value"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _sbatch_subword_shape_29 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_27
-    set --global subword_literals "--propagate" "=rlimits"
-    set --global subword_descrs
-    set --global subword_descrs[1] "propagate all [or specific list of] rlimits"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _sbatch_subword_shape_29 "$argv[1]" "$argv[2]"
+    set --global subword_literal_transitions_inputs
+    set --global subword_literal_transitions_inputs[1] "2"
+    set --global subword_literal_transitions_tos[1] "2"
+    set --global subword_literal_transitions_inputs[2] "1 9 11"
+    set --global subword_literal_transitions_tos[2] "5 4 3"
+    set --global subword_literal_transitions_inputs[3] "6"
+    set --global subword_literal_transitions_tos[3] "6"
+    set --global subword_literal_transitions_inputs[4] "12"
+    set --global subword_literal_transitions_tos[4] "7"
+    set --global subword_literal_transitions_inputs[5] "5"
+    set --global subword_literal_transitions_tos[5] "4"
+    set --global subword_literal_transitions_inputs[6] "3 4 7 8 10"
+    set --global subword_literal_transitions_tos[6] "7 7 7 7 7"
+    set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
+    set --global subword_literal_froms_level_0 1 2 3 4 5 6
+    set --global subword_literal_inputs_level_0 "2" "1 9 11" "6" "12" "5" "3 4 7 8 10"
+    set --global subword_command_froms_level_0 
+    set --global subword_commands_level_0 
+    set --global subword_max_fallback_level 0
+    _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
 function _sbatch_subword_2
-    set --global subword_literals "--account="
+    set --global subword_literals "--chdir="
     set --global subword_descrs
-    set --global subword_descrs[1] "charge job to specified account"
+    set --global subword_descrs[1] "set working directory for batch script"
     set --global subword_descr_literal_ids 1
     set --global subword_descr_ids 1
     set --global subword_literal_transitions_inputs
@@ -931,6 +1075,8 @@ function _sbatch_subword_2
     set --global subword_literal_transitions_tos[1] "2"
     set --global subword_command_transitions
     set --global subword_command_transitions[2] "0,3"
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 1
     set --global subword_literal_inputs_level_0 "1"
     set --global subword_command_froms_level_0 2
@@ -939,73 +1085,7 @@ function _sbatch_subword_2
     _sbatch_subword "$argv[1]" "$argv[2]"
 end
 
-function _sbatch_subword_31
-    set --global subword_literals "YYYY-MM-DD" "MM/DD/YY" "seconds" "minutes" "--time=" "THH:MM" "MMDDYY" "weeks" "hours" "HH:MM" "days" "now" ":SS" "+1"
-    set --global subword_descrs
-    set --global subword_descrs[1] "time limit"
-    set --global subword_descr_literal_ids 5
-    set --global subword_descr_ids 1
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "5"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[2] "1 2 7 10 12"
-    set --global subword_literal_transitions_tos[2] "6 5 5 4 3"
-    set --global subword_literal_transitions_inputs[3] "14"
-    set --global subword_literal_transitions_tos[3] "7"
-    set --global subword_literal_transitions_inputs[4] "13"
-    set --global subword_literal_transitions_tos[4] "5"
-    set --global subword_literal_transitions_inputs[6] "6"
-    set --global subword_literal_transitions_tos[6] "4"
-    set --global subword_literal_transitions_inputs[7] "3 4 8 9 11"
-    set --global subword_literal_transitions_tos[7] "5 5 5 5 5"
-    set --global subword_command_transitions
-    set --global subword_literal_froms_level_0 1 2 3 4 6 7
-    set --global subword_literal_inputs_level_0 "5" "1 2 7 10 12" "14" "13" "6" "3 4 8 9 11"
-    set --global subword_command_froms_level_0 
-    set --global subword_commands_level_0 
-    set --global subword_max_fallback_level 0
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_shape_32
-    set --global subword_literal_transitions_inputs
-    set --global subword_literal_transitions_inputs[1] "1"
-    set --global subword_literal_transitions_tos[1] "2"
-    set --global subword_literal_transitions_inputs[3] "2"
-    set --global subword_literal_transitions_tos[3] "2"
-    set --global subword_command_transitions
-    set --global subword_command_transitions[2] "13,3"
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1 3
-    set --global subword_literal_inputs_level_1 "1" "2"
-    set --global subword_command_froms_level_0 2
-    set --global subword_commands_level_0 "13"
-    set --global subword_command_froms_level_1 
-    set --global subword_commands_level_1 
-    set --global subword_max_fallback_level 1
-    _sbatch_subword "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_42
-    set --global subword_literals "--nodelist=" ","
-    set --global subword_descrs
-    set --global subword_descrs[1] "request a specific list of hosts"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _sbatch_subword_shape_32 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_43
-    set --global subword_literals "--exclude=" ","
-    set --global subword_descrs
-    set --global subword_descrs[1] "exclude a specific list of hosts"
-    set --global subword_descr_literal_ids 1
-    set --global subword_descr_ids 1
-    _sbatch_subword_shape_32 "$argv[1]" "$argv[2]"
-end
-
-function _sbatch_subword_29
+function _sbatch_subword_7
     set --global subword_literals "-requeue" "no" "--"
     set --global subword_descrs
     set --global subword_descrs[1] "whether to permit the job to be requeued"
@@ -1019,6 +1099,8 @@ function _sbatch_subword_29
     set --global subword_literal_transitions_inputs[3] "1"
     set --global subword_literal_transitions_tos[3] "4"
     set --global subword_command_transitions
+    set --global subword_star_transitions_from 
+    set --global subword_star_transitions_to 
     set --global subword_literal_froms_level_0 1 2 3
     set --global subword_literal_inputs_level_0 "3" "1 2" "1"
     set --global subword_command_froms_level_0 
@@ -1205,6 +1287,12 @@ function _sbatch_subword
             end
         end
 
+        set index (contains --index -- "$subword_state" $subword_star_transitions_from)
+        if test -n "$index"
+            set matched 1
+            break
+        end
+
         break
     end
 
@@ -1275,108 +1363,59 @@ function _sbatch
         set COMP_CWORD (count $COMP_WORDS)
     end
 
-    set literals "--oversubscribe" "--container-id=" "--get-user-env" "--spread-job" "--overcommit" "--contiguous" "YYYY-MM-DD" "--parsable" "--comment=" "arbitrary" "--version" "--verbose" "--no-kill" "MM/DD/YY" "--usage" "--quiet" "cyclic" "MMDDYY" "--wait" "--hold" "--help" "plane" "block" "-x" "-w" "-v" "-t" "-s" "-q" "-p" "-o" "-n" "-m" "-k" "-i" "-h" "-e" "-d" "-c" "-b" "-a" "-W" "-V" "-Q" "-O" "-N" "-M" "-L" "-J" "-H" "-G" "-D" "-C" "-A" "--" "8" "1"
+    set literals "--oversubscribe" "--get-user-env" "--spread-job" "--overcommit" "--contiguous" "--parsable" "arbitrary" "--version" "--verbose" "--no-kill" "--usage" "--quiet" "cyclic" "--hold" "--help" "plane" "block" "-x" "-w" "-v" "-t" "-s" "-q" "-p" "-o" "-n" "-m" "-k" "-i" "-h" "-e" "-d" "-c" "-b" "-a" "-W" "-V" "-Q" "-O" "-N" "-M" "-L" "-J" "-H" "-G" "-D" "-C" "-A" "--"
     set descrs
     set descrs[1] "over-subscribe resources with other jobs"
-    set descrs[2] "OCI container ID"
-    set descrs[3] "load environment from local cluster"
-    set descrs[4] "spread job across as many nodes as possible"
-    set descrs[5] "overcommit resources"
-    set descrs[6] "demand a contiguous range of nodes"
-    set descrs[7] "outputs only the jobid and cluster name (if present), separated by semicolon, only on successful submission."
-    set descrs[8] "arbitrary comment"
-    set descrs[9] "output version information and exit"
-    set descrs[10] "verbose mode (multiple -v's increase verbosity)"
-    set descrs[11] "do not kill job on node failure"
-    set descrs[12] "display brief usage message"
-    set descrs[13] "quiet mode (suppress informational messages)"
-    set descrs[14] "wait for completion of submitted job"
-    set descrs[15] "submit job in held state"
-    set descrs[16] "show this help message"
-    set descrs[17] "exclude a specific list of hosts"
-    set descrs[18] "request a specific list of hosts"
-    set descrs[19] "time limit"
-    set descrs[20] "quality of service"
-    set descrs[21] "partition requested"
-    set descrs[22] "file for batch script's standard output"
-    set descrs[23] "number of tasks to run"
-    set descrs[24] "distribution method for processes to nodes"
-    set descrs[25] "file for batch script's standard input"
-    set descrs[26] "file for batch script's standard error"
-    set descrs[27] "defer job until condition on jobid is satisfied"
-    set descrs[28] "number of cpus required per task"
-    set descrs[29] "defer job until HH:MM MM/DD/YY"
-    set descrs[30] "job array index values"
-    set descrs[31] "number of nodes on which to run (N = min[-max])"
-    set descrs[32] "Comma separated list of clusters to issue"
-    set descrs[33] "required license, comma separated"
-    set descrs[34] "name of job"
-    set descrs[35] "count of GPUs required for the job"
-    set descrs[36] "set working directory for batch script"
-    set descrs[37] "specify a list of constraints"
-    set descrs[38] "charge job to specified account"
-    set descr_literal_ids 1 2 3 4 5 6 8 9 11 12 13 15 16 19 20 21 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54
-    set descr_ids 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 10 19 1 20 21 22 23 24 11 25 16 26 27 28 29 30 14 9 13 5 31 32 33 34 15 35 36 37 38
+    set descrs[2] "load environment from local cluster"
+    set descrs[3] "spread job across as many nodes as possible"
+    set descrs[4] "overcommit resources"
+    set descrs[5] "demand a contiguous range of nodes"
+    set descrs[6] "outputs only the jobid and cluster name (if present), separated by semicolon, only on successful submission."
+    set descrs[7] "output version information and exit"
+    set descrs[8] "verbose mode (multiple -v's increase verbosity)"
+    set descrs[9] "do not kill job on node failure"
+    set descrs[10] "display brief usage message"
+    set descrs[11] "quiet mode (suppress informational messages)"
+    set descrs[12] "submit job in held state"
+    set descrs[13] "show this help message"
+    set descr_literal_ids 1 2 3 4 5 6 8 9 10 11 12 14 15
+    set descr_ids 1 2 3 4 5 6 7 8 9 10 11 12 13
     set literal_transitions_inputs
-    set literal_transitions_inputs[1] "1 2 3 4 5 6 8 9 11 12 13 15 16 19 20 21 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55"
-    set literal_transitions_tos[1] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 18 18 2 4 2 16 15 8 14 13 2 8 2 8 6 5 4 2 2 2 2 2 14 12 11 10 2 19 7 17 3 20"
-    set literal_transitions_inputs[2] "1 2 3 4 5 6 8 9 11 12 13 15 16 19 20 21 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54"
-    set literal_transitions_tos[2] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 18 18 2 4 2 16 15 8 14 13 2 8 2 8 6 5 4 2 2 2 2 2 14 12 11 10 2 19 7 17 3"
-    set literal_transitions_inputs[4] "7 14 18"
-    set literal_transitions_tos[4] "2 2 2"
-    set literal_transitions_inputs[5] "1 2 3 4 5 6 8 9 11 12 13 15 16 19 20 21 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 56"
-    set literal_transitions_tos[5] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 18 18 2 4 2 16 15 8 14 13 2 8 2 8 6 5 4 2 2 2 2 2 14 12 11 10 2 19 7 17 3 2"
-    set literal_transitions_inputs[10] "1 2 3 4 5 6 8 9 11 12 13 15 16 19 20 21 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54"
-    set literal_transitions_tos[10] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 18 18 2 4 2 16 15 8 14 13 2 8 2 8 6 5 4 2 2 2 2 2 14 12 11 10 2 19 7 17 3"
-    set literal_transitions_inputs[13] "10 17 22 23"
-    set literal_transitions_tos[13] "2 2 2 2"
-    set literal_transitions_inputs[14] "1 2 3 4 5 6 8 9 11 12 13 15 16 19 20 21 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 57"
-    set literal_transitions_tos[14] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 18 18 2 4 2 16 15 8 14 13 2 8 2 8 6 5 4 2 2 2 2 2 14 12 11 10 2 19 7 17 3 2"
-    set literal_transitions_inputs[19] "1 2 3 4 5 6 8 9 11 12 13 15 16 19 20 21 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 57"
-    set literal_transitions_tos[19] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 18 18 2 4 2 16 15 8 14 13 2 8 2 8 6 5 4 2 2 2 2 2 14 12 11 10 2 19 7 17 3 2"
-    set literal_transitions_inputs[22] "1 2 3 4 5 6 8 9 11 12 13 15 16 19 20 21 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54"
-    set literal_transitions_tos[22] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 18 18 2 4 2 16 15 8 14 13 2 8 2 8 6 5 4 2 2 2 2 2 14 12 11 10 2 19 7 17 3"
+    set literal_transitions_inputs[1] "1 2 3 4 5 6 8 9 10 11 12 14 15 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49"
+    set literal_transitions_tos[1] "2 2 2 2 2 2 2 2 2 2 2 2 2 17 17 2 8 2 15 14 5 3 12 2 5 2 5 9 3 8 3 3 2 2 2 3 11 10 13 2 3 4 16 7 18"
+    set literal_transitions_inputs[2] "1 2 3 4 5 6 8 9 10 11 12 14 15 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48"
+    set literal_transitions_tos[2] "2 2 2 2 2 2 2 2 2 2 2 2 2 17 17 2 8 2 15 14 5 3 12 2 5 2 5 9 3 8 3 3 2 2 2 3 11 10 13 2 3 4 16 7"
+    set literal_transitions_inputs[12] "7 13 16 17"
+    set literal_transitions_tos[12] "2 2 2 2"
     set command_transitions
-    set command_transitions[1] "1,9"
-    set command_transitions[2] "1,9"
-    set command_transitions[3] "0,2"
-    set command_transitions[5] "1,9"
+    set command_transitions[1] "1,6"
+    set command_transitions[2] "1,6"
+    set command_transitions[4] "0,2"
+    set command_transitions[5] "1,2"
+    set command_transitions[6] "1,19 2,19"
     set command_transitions[7] "3,2"
-    set command_transitions[8] "1,2"
-    set command_transitions[9] "1,21 10,21"
-    set command_transitions[10] "1,22"
-    set command_transitions[12] "6,2"
-    set command_transitions[14] "1,9"
-    set command_transitions[15] "8,2"
-    set command_transitions[16] "9,2"
-    set command_transitions[19] "1,9"
-    set command_transitions[20] "1,9"
-    set command_transitions[21] "1,21 10,21"
-    set command_transitions[22] "1,21 10,21"
+    set command_transitions[11] "7,2"
+    set command_transitions[13] "1,2"
+    set command_transitions[14] "9,2"
+    set command_transitions[15] "10,2"
+    set command_transitions[18] "1,6"
+    set command_transitions[19] "1,19 2,19"
+    set star_transitions_from 1 13 2 3
+    set star_transitions_to 2 2 2 2
     set subword_transitions_ids[1] "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47"
     set subword_transitions_tos[1] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2"
     set subword_transitions_ids[2] "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47"
     set subword_transitions_tos[2] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2"
-    set subword_transitions_ids[4] "48 49 50"
-    set subword_transitions_tos[4] "2 2 2"
-    set subword_transitions_ids[5] "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47"
-    set subword_transitions_tos[5] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2"
-    set subword_transitions_ids[6] "53"
-    set subword_transitions_tos[6] "2"
-    set subword_transitions_ids[10] "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47"
-    set subword_transitions_tos[10] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2"
-    set subword_transitions_ids[11] "54"
-    set subword_transitions_tos[11] "2"
-    set subword_transitions_ids[14] "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47"
-    set subword_transitions_tos[14] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2"
-    set subword_transitions_ids[17] "51"
+    set subword_transitions_ids[8] "50 51 52"
+    set subword_transitions_tos[8] "2 2 2"
+    set subword_transitions_ids[9] "53"
+    set subword_transitions_tos[9] "2"
+    set subword_transitions_ids[10] "49"
+    set subword_transitions_tos[10] "2"
+    set subword_transitions_ids[16] "54"
+    set subword_transitions_tos[16] "2"
+    set subword_transitions_ids[17] "48"
     set subword_transitions_tos[17] "2"
-    set subword_transitions_ids[18] "52"
-    set subword_transitions_tos[18] "2"
-    set subword_transitions_ids[19] "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47"
-    set subword_transitions_tos[19] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2"
-    set subword_transitions_ids[22] "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47"
-    set subword_transitions_tos[22] "2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2"
 
     set state 1
     set word_index 2
@@ -1465,22 +1504,29 @@ function _sbatch
             end
         end
 
+        set index (contains --index -- "$state" $star_transitions_from)
+        if test -n "$index"
+            set state $star_transitions_to[$index]
+            set word_index (math $word_index + 1)
+            continue
+        end
+
         return 1
     end
 
-    set literal_froms_level_0 1 2 4 5 10 13 14 19 22
-    set literal_inputs_level_0 "1 2 3 4 5 8 9 12 13 16 19 20 26 27 28 29 30 31 32 33 34 35 37 38 39 40 41 42 44 45 46 47 48 49 50 52 54" "1 2 3 4 5 8 9 12 13 16 19 20 26 27 28 29 30 31 32 33 34 35 37 38 39 40 41 42 44 45 46 47 48 49 50 52 54" "7 14 18" "1 2 3 4 5 8 9 12 13 16 19 20 26 27 28 29 30 31 32 33 34 35 37 38 39 40 41 42 44 45 46 47 48 49 50 52 54 56" "1 2 3 4 5 8 9 12 13 16 19 20 26 27 28 29 30 31 32 33 34 35 37 38 39 40 41 42 44 45 46 47 48 49 50 52 54" "10 17 22 23" "1 2 3 4 5 8 9 12 13 16 19 20 26 27 28 29 30 31 32 33 34 35 37 38 39 40 41 42 44 45 46 47 48 49 50 52 54 57" "1 2 3 4 5 8 9 12 13 16 19 20 26 27 28 29 30 31 32 33 34 35 37 38 39 40 41 42 44 45 46 47 48 49 50 52 54" "1 2 3 4 5 8 9 12 13 16 19 20 26 27 28 29 30 31 32 33 34 35 37 38 39 40 41 42 44 45 46 47 48 49 50 52 54"
-    set literal_froms_level_1 1 2 5 10 14 19 22
-    set literal_inputs_level_1 "6 11 15 21 24 25 36 43 51 53 55" "6 11 15 21 24 25 36 43 51 53" "6 11 15 21 24 25 36 43 51 53" "6 11 15 21 24 25 36 43 51 53" "6 11 15 21 24 25 36 43 51 53" "6 11 15 21 24 25 36 43 51 53 57" "6 11 15 21 24 25 36 43 51 53"
-    set command_froms_level_0 1 2 3 5 7 8 9 10 12 14 15 16 19 20 21 22
-    set commands_level_0 "1" "1" "0" "1" "3" "1" "1 10" "1" "6" "1" "8" "9" "1" "1" "1 10" "1 10"
+    set literal_froms_level_0 1 2
+    set literal_inputs_level_0 "1 2 3 4 6 8 9 10 12 14 15" "1 2 3 4 6 8 9 10 12 14 15"
+    set literal_froms_level_1 1 2 12
+    set literal_inputs_level_1 "5 11 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49" "5 11 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48" "7 13 16 17"
+    set command_froms_level_0 1 2 4 5 6 7 11 13 14 15 18 19
+    set commands_level_0 "1" "1" "0" "1" "1 2" "3" "7" "1" "9" "10" "1" "1 2"
     set command_froms_level_1 
     set commands_level_1 
     set --global subword_max_fallback_level 1
-    set subword_froms_level_0 1 2 4 5 6 10 11 14 19 22
-    set subwords_level_0 "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34" "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34" "48 49 50" "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34" "53" "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34" "54" "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34" "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34" "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34"
-    set subword_froms_level_1 1 2 5 10 14 17 18 19 22
-    set subwords_level_1 "35 36 37 38 39 40 41 42 43 44 45 46 47" "35 36 37 38 39 40 41 42 43 44 45 46 47" "35 36 37 38 39 40 41 42 43 44 45 46 47" "35 36 37 38 39 40 41 42 43 44 45 46 47" "35 36 37 38 39 40 41 42 43 44 45 46 47" "51" "52" "35 36 37 38 39 40 41 42 43 44 45 46 47" "35 36 37 38 39 40 41 42 43 44 45 46 47"
+    set subword_froms_level_0 1 2
+    set subwords_level_0 "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 38 44 45 47" "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 38 44 45 47"
+    set subword_froms_level_1 1 2 8 9 10 16 17
+    set subwords_level_1 "37 39 40 41 42 43 46" "37 39 40 41 42 43 46" "50 51 52" "53" "49" "54" "48"
 
     set fallback_level 0
     while test $fallback_level -le 1

@@ -2,7 +2,7 @@
 
 function _slog_cmd_0
     set 1 $argv[1]
-    squeue -u $USER -ho '%A|%j|%T' | tr -s '|' '\t'
+    squeue --me -ho '%A|%j|%T' | tr -s '|' '\t'
 end
 
 function _slog_cmd_1
@@ -23,11 +23,9 @@ function _slog_subword_1
     set --global subword_literal_transitions_tos[2] "4 3"
     set --global subword_literal_transitions_inputs[3] "1"
     set --global subword_literal_transitions_tos[3] "4"
-    set --global subword_literal_froms_level_0 
-    set --global subword_literal_inputs_level_0 
-    set --global subword_literal_froms_level_1 1 2 3
-    set --global subword_literal_inputs_level_1 "3" "1 2" "1"
-    set --global subword_max_fallback_level 1
+    set --global subword_literal_froms_level_0 1 2 3
+    set --global subword_literal_inputs_level_0 "3" "1 2" "1"
+    set --global subword_max_fallback_level 0
     _slog_subword "$argv[1]" "$argv[2]"
 end
 
@@ -208,7 +206,7 @@ function _slog
         set COMP_CWORD (count $COMP_WORDS)
     end
 
-    set literals "--stdout" "--stderr" "--local" "--help" "--all" "-o" "-l" "-h" "-e" "-c" "-a"
+    set literals "--stdout" "--stderr" "--local" "--help" "--all" "-o" "-l" "-h" "-e" "-c" "-a" "--"
     set descrs
     set descrs[1] "Show stdout (default: false)"
     set descrs[2] "Show stderr (default: true)"
@@ -219,27 +217,19 @@ function _slog
     set descr_literal_ids 1 2 3 4 5 6 7 8 9 10 11
     set descr_ids 1 2 3 4 5 1 3 4 2 6 5
     set literal_transitions_inputs
-    set literal_transitions_inputs[1] "1 2 3 4 5 6 7 8 9 10 11"
-    set literal_transitions_tos[1] "2 2 3 2 2 2 3 2 2 2 2"
-    set literal_transitions_inputs[2] "1 2 4 5 6 8 9 10 11"
-    set literal_transitions_tos[2] "2 2 2 2 2 2 2 2 2"
-    set literal_transitions_inputs[3] "1 2 4 5 6 8 9 10 11"
-    set literal_transitions_tos[3] "4 4 4 4 4 4 4 4 4"
-    set literal_transitions_inputs[4] "1 2 4 5 6 8 9 10 11"
-    set literal_transitions_tos[4] "4 4 4 4 4 4 4 4 4"
+    set literal_transitions_inputs[1] "1 2 3 4 5 6 7 8 9 10 11 12"
+    set literal_transitions_tos[1] "2 2 2 2 2 2 2 2 2 2 2 3"
+    set literal_transitions_inputs[2] "1 2 3 4 5 6 7 8 9 10 11"
+    set literal_transitions_tos[2] "2 2 2 2 2 2 2 2 2 2 2"
     set command_transitions
-    set command_transitions[1] "0,2"
-    set command_transitions[2] "0,2"
+    set command_transitions[1] "0,4 1,4"
+    set command_transitions[2] "0,4 1,4"
     set command_transitions[3] "0,4 1,4"
     set command_transitions[4] "0,4 1,4"
     set subword_transitions_ids[1] "1"
     set subword_transitions_tos[1] "2"
     set subword_transitions_ids[2] "1"
     set subword_transitions_tos[2] "2"
-    set subword_transitions_ids[3] "1"
-    set subword_transitions_tos[3] "4"
-    set subword_transitions_ids[4] "1"
-    set subword_transitions_tos[4] "4"
 
     set state 1
     set word_index 2
@@ -331,19 +321,19 @@ function _slog
         return 1
     end
 
-    set literal_froms_level_0 
-    set literal_inputs_level_0 
-    set literal_froms_level_1 1 2 3 4
-    set literal_inputs_level_1 "1 2 3 4 5 6 7 8 9 10 11" "1 2 4 5 6 8 9 10 11" "1 2 4 5 6 8 9 10 11" "1 2 4 5 6 8 9 10 11"
+    set literal_froms_level_0 1 2
+    set literal_inputs_level_0 "1 2 3 4 5 6 7 8 9 10 11" "1 2 3 4 5 6 7 8 9 10 11"
+    set literal_froms_level_1 1
+    set literal_inputs_level_1 "12"
     set command_froms_level_0 1 2 3 4
-    set commands_level_0 "0" "0" "0 1" "0 1"
+    set commands_level_0 "0 1" "0 1" "0 1" "0 1"
     set command_froms_level_1 
     set commands_level_1 
     set --global subword_max_fallback_level 1
-    set subword_froms_level_0 
-    set subwords_level_0 
-    set subword_froms_level_1 1 2 3 4
-    set subwords_level_1 "1" "1" "1" "1"
+    set subword_froms_level_0 1 2
+    set subwords_level_0 "1" "1"
+    set subword_froms_level_1 
+    set subwords_level_1 
 
     set fallback_level 0
     while test $fallback_level -le 1

@@ -1,127 +1,95 @@
-sbatch ([<SBATCH_OPTION>]... || --) <PATH> (<PATH> | <EXE>)...;
+sbatch ([<SBATCH_OPTION> | <SLURM_COMMON_OPTION>]... || --) <PATH> (<PATH> || <EXE>)...;
 
-<SBATCH_OPTION> ::=
-	(-a | --array=0[(,|-)0[(%|:)1]]) "job array index values"
-	| (-A <ACCOUNT> | --account=<ACCOUNT>) "charge job to specified account"
-	| (-b <TIME> | --begin=<TIME>) "defer job until HH:MM MM/DD/YY"
-	| (-c [8] | --cpus-per-task=[8]) "number of cpus required per task"
-	| --comment= "arbitrary comment"
-	| --container=<PATH> "Path to OCI container bundle"
-	| --container-id= "OCI container ID"
-	| (-d <DEPENDENCY>[,<DEPENDENCY>]... | --dependency=<DEPENDENCY>[,<DEPENDENCY>]...) "defer job until condition on jobid is satisfied"
-	| --deadline=<TIME> "remove the job if no ending possible before this deadline (start > (deadline - time[-min]))"
-	| (-D <DIRECTORY> | --chdir=<DIRECTORY>) "set working directory for batch script"
-	| (-e <PATH> | --error=<PATH>) "file for batch script's standard error"
-	| --export=<EXPORT> "specify environment variables to export"
-	| --get-user-env "load environment from local cluster"
-	| --gres=<GRES> "required generic resources"
-	| (-H | --hold) "submit job in held state"
-	| (-i <PATH> | --input=<PATH>) "file for batch script's standard input"
-	| (-J [<PATH>] | --job-name=[<PATH>]) "name of job"
-	| (-k | --no-kill) "do not kill job on node failure"
-	| (-L <LICENSE>[,<LICENSE>[:0]]... | --licenses=<LICENSE>[,<LICENSE>[:0]]...) "required license, comma separated"
-	| (-M <CLUSTER> | --clusters=<CLUSTER>) "Comma separated list of clusters to issue"
-	| (-m <DISTRIBUTION> | --distribution=<DISTRIBUTION>) "distribution method for processes to nodes"
-	| --mail-type=<MAIL_TYPE> "notify on state change: BEGIN, END, FAIL or ALL"
-	| --mail-user=<USER> "who to send email notification for job state changes"
-	| (-n [1] | --ntasks=[1]) "number of tasks to run"
-	| --nice[=0] "decrease scheduling priority by value"
-	| --ntasks-per-node=[1] "number of tasks to invoke on each node"
-	| (-N [1] | --nodes=[1]) "number of nodes on which to run (N = min[-max])"
-	| (-o <PATH> | --output=<PATH>) "file for batch script's standard output"
-	| (-O | --overcommit) "overcommit resources"
-	| (-p <PARTITION> | --partition=<PARTITION>) "partition requested"
-	| --parsable "outputs only the jobid and cluster name (if present), separated by semicolon, only on successful submission."
-	| --priority=[0] "set the priority of the job to value"
-	| --profile=(all | none | <DATATYPE>||[,<DATATYPE>]...) "enable acct_gather_profile for detailed data value is all or none or any combination of energy, lustre, network or task"
-	| --propagate[=rlimits] "propagate all [or specific list of] rlimits"
-	| (-q <QOS> | --qos=<QOS>) "quality of service"
-	| (-Q | --quiet) "quiet mode (suppress informational messages)"
-	| --[no]-requeue "whether to permit the job to be requeued"
-	| (-s | --oversubscribe) "over-subscribe resources with other jobs"
-	| --signal=[R:]<SIGNAL>[<INTERVAL>] "send signal when time limit within time seconds"
-	| --spread-job "spread job across as many nodes as possible"
-	| (-t <TIME> | --time=<TIME>) "time limit"
-	| --time-min=<TIME> "minimum time limit (if distinct)"
-	| (-v | --verbose) "verbose mode (multiple -v's increase verbosity)"
-	| (-W | --wait) "wait for completion of submitted job"
-	| --wrap=<EXE> "wrap command string in a sh script and submit"
-	| --cluster-constraint=[!]<FEATURE>||[,<FEATURE>]... "specify a list of cluster constraints"
-	| --contiguous "demand a contiguous range of nodes"
-	| (-C <FEATURE>[,<FEATURE>]... | --constraint=<FEATURE>[,<FEATURE>]...) "specify a list of constraints"
-	| --mem=[128G] "minimum amount of real memory"
-	| --mem-per-cpu=[8G] "maximum amount of real memory per allocated cpu required by the job. --mem >= --mem-per-cpu if --mem is specified."
-	| --mem-per-gpu=[64G] "real memory required per allocated GPU"
-	| --reservation=<RESERVATION> "allocate resources from named reservation"
-	| --tmp=[10G] "minimum amount of temporary disk"
-	| (-w (<NODE>[,<NODE>]...) | --nodelist=(<NODE>[,<NODE>]...)) "request a specific list of hosts"
-	| (-x (<NODE>[,<NODE>]...) | --exclude=(<NODE>[,<NODE>]...)) "exclude a specific list of hosts"
-	| --exclusive[=user] "allocate nodes in exclusive mode when cpu consumable resource is enabled"
-	| --exclusive[=mcs] "allocate nodes in exclusive mode when cpu consumable resource is enabled and mcs plugin is enabled"
-	| --cpus-per-gpu=[8] "number of CPUs required per allocated GPU"
-	| (-G [1] | --gpus=[1]) "count of GPUs required for the job"
-	| (-h | --help) "show this help message"
-	| --usage "display brief usage message"
-	| (-V | --version) "output version information and exit"
+<SLURM_COMMON_OPTION>
+	= (--account=<ACCOUNT> || -A <ACCOUNT>)										"charge job to specified account"
+	| (--begin=<TIME> || -b <TIME>)												"defer job until HH:MM MM/DD/YY"
+	| (--cpus-per-task=<_> || -c <_>)											"number of cpus required per task"
+	| --comment=<_>																"arbitrary comment"
+	| --container=<PATH>														"Path to OCI container bundle"
+	| --container-id=<_>														"OCI container ID"
+	| (--dependency=<LSDEP> || -d <LSDEP>)										"defer job until condition on jobid is satisfied"
+	| --deadline=<TIME>															"remove the job if no ending possible before this deadline (start > (deadline - time[-min]))"
+	| --gres=<GRES>																"required generic resources"
+	| (--hold || -H)															"submit job in held state"
+	| (--no-kill || -k)															"do not kill job on node failure"
+	| (--licenses=<LSLICS> || -L <LSLICS>)										"required license, comma separated"
+	| (--clusters=<CLUSTER> || -M <CLUSTER>)									"Comma separated list of clusters to issue"
+	| (--distribution=<DISTRIBUTION> || -m <DISTRIBUTION>)						"distribution method for processes to nodes"
+	| (--job-name=(<PATH> || <_>) || -J (<PATH> || <_>))						"name of job"
+	| --mail-type=<MAIL_TYPE>													"notify on state change: BEGIN, END, FAIL or ALL"
+	| --mail-user=<USER>														"who to send email notification for job state changes"
+	| (--ntasks=<_> || -n <_>)													"number of tasks to run"
+	| --nice[=<_>]																"decrease scheduling priority by value"
+	| --ntasks-per-node=<_>														"number of tasks to invoke on each node"
+	| (--nodes=<_> || -N <_>)													"number of nodes on which to run (N = min[-max])"
+	| (--overcommit || -O)														"overcommit resources"
+	| (--partition=<PARTITION> || -p <PARTITION>)								"partition requested"
+	| --priority=<_>															"set the priority of the job to value"
+	| --profile=(all|none|<DATATYPE>[,<DATATYPE>]...)							"enable acct_gather_profile for detailed data value is all or none or any combination of energy, lustre, network or task"
+	| (--qos=<QOS> || -q <QOS>)													"quality of service"
+	| (--quiet || -Q)															"quiet mode (suppress informational messages)"
+	| (--oversubscribe || -s)													"over-subscribe resources with other jobs"
+	| --spread-job																"spread job across as many nodes as possible"
+	| (--time=<TIME> || -t <TIME>)												"time limit"
+	| --time-min=<TIME>||<_>															"minimum time limit (if distinct)"
+	| (--verbose || -v)															"verbose mode (multiple -v's increase verbosity)"
+	| --cluster-constraint=[!]<LSFEAT>											"specify a list of cluster constraints"
+	| --contiguous																"demand a contiguous range of nodes"
+	| (--constraint=<LSFEAT> || -C <LSFEAT>)									"specify a list of constraints"
+	| --mem=<_>																	"minimum amount of real memory"
+	| --mem-per-cpu=<_>															"maximum amount of real memory per allocated cpu required by the job. --mem >= --mem-per-cpu if --mem is specified."
+	| --mem-per-gpu=<_>															"real memory required per allocated GPU"
+	| --reservation=<RESERVATION>												"allocate resources from named reservation"
+	| --tmp=<_>																	"minimum amount of temporary disk"
+	| (--nodelist=<LSNODE> || -w <LSNODE>)										"request a specific list of hosts"
+	| (--exclude=<LSNODE> || -x <LSNODE>)										"exclude a specific list of hosts"
+	| --cpus-per-gpu=<_>														"number of CPUs required per allocated GPU"
+	| (--gpus=<_> || -G <_>)													"count of GPUs required for the job"
+	| (--help || -h)															"show this help message"
+	| --usage																	"display brief usage message"
+	| (--version || -V)															"output version information and exit"
 	;
 
-<ACCOUNT> ::= {{{ sacctmgr show account -nP format=account }}};
-<CLUSTER> ::= {{{ sacctmgr show cluster -nP format=clusters }}};
-<DATATYPE> ::= task | energy | network | filesystem;
-<DEPENDENCY_TYPE> ::= after | afterany | afterok | aftercorr | afternotok;
-<DEPENDENCY> ::= [<DEPENDENCY_TYPE>:<QUEUED_JOBIDS>[:<QUEUED_JOBIDS>]...];
-<DISTRIBUTION> ::= block | cyclic | arbitrary | plane;
-<FEATURE> ::= {{{ sinfo -ho %f }}};
-<GRES> ::= {{{ sinfo -ho "%G" | sed 's/([^)]*)//g' | tr ':' '\n' | grep -v '^[0-9]' | sort -u }}};
-<LICENSE> ::= {{{ scontrol show lic }}};
-<MAIL_TYPE> ::= NONE | BEGIN | END | FAIL | ALL | REQUEUE | STAGE_OUT | TIME_LIMIT | TIME_LIMIT_90 | TIME_LIMIT_80 | TIME_LIMIT_50 | ARRAY_TASKS;
-<NODE> ::= {{{ sinfo -ho %n }}};
-<PARTITION> ::= {{{ sinfo -ho %P }}};
-<QOS> ::= {{{ sacctmgr show qos -nP format=name }}};
-<QUEUED_JOBIDS> ::= {{{ squeue -u $USER -ho '%A' }}};
-<RESERVATION> ::= {{{ sacctmgr show reservation -nP format=name }}};
-<USER> ::= {{{ sacctmgr show user -nP format=user }}};
-
-<INTERVAL> ::= 60[s|m|h];
-<EXPORT> ::= ALL[,ENVVAR] | NONE | NIL;
-<TIME> ::= (now[+1[seconds|minutes|hours|days|weeks]]) | HH:MM[:SS] | MMDDYY | MM/DD/YY | YYYY-MM-DD | YYYY-MM-DD[THH:MM[:SS]];
-<EXE@bash> ::= {{{ compgen -c }}};
-<EXE@zsh> ::= {{{ compgen -c }}};
-<EXE@fish> ::= {{{ __fish_complete_command }}};
-
-<SIGNAL> ::=
-	1 | SIGHUP
-	| 2 | SIGINT
-	| 3 | SIGQUIT
-	| 4 | SIGILL
-	| 5 | SIGTRAP
-	| 6 | SIGIOT | SIGABRT
-	| 7 | SIGEMT
-	| 8 | SIGFPE
-	| 9 | SIGKILL
-	| 10 | SIGBUS
-	| 11 | SIGSEGV
-	| 12 | SIGSYS
-	| 13 | SIGPIPE
-	| 14 | SIGALRM
-	| 15 | SIGTERM
-	| 16 | SIGUSR1
-	| 17 | SIGUSR2
-	| 18 | SIGCLD | SIGCHLD
-	| 19 | SIGPWR
-	| 20 | SIGWINCH
-	| 21 | SIGURG
-	| 22 | SIGPOLL | SIGIO
-	| 23 | SIGSTOP
-	| 24 | SIGTSTP
-	| 25 | SIGCONT
-	| 26 | SIGTTIN
-	| 27 | SIGTTOU
-	| 28 | SIGVTALRM
-	| 29 | SIGPROF
-	| 30 | SIGXCPU
-	| 31 | SIGXFSZ
-	| 32 | SIGWAITING
-	| 33 | SIGLWP
-	| 34 | SIGAIO
+<SBATCH_OPTION>
+	= (--array=<_> || -a <_>)													"job array index values"
+	| (--chdir=<DIRECTORY> || -D <DIRECTORY>)									"set working directory for batch script"
+	| (--error=<PATH> || -e <PATH>)												"file for batch script's standard error"
+	| --export=<EXPORT>															"specify environment variables to export"
+	| --get-user-env															"load environment from local cluster"
+	| (--input=<PATH> || -i <PATH>)												"file for batch script's standard input"
+	| (--output=<PATH> || -o <PATH>)											"file for batch script's standard output"
+	| --parsable																"outputs only the jobid and cluster name (if present), separated by semicolon, only on successful submission."
+	| --[no]-requeue															"whether to permit the job to be requeued"
+	| (--wait=<_> || -W <_>)													"wait for completion of submitted job"
+	| --wrap=<EXE>																"wrap command string in a sh script and submit"
+	| --exclusive[=user]														"allocate nodes in exclusive mode when cpu consumable resource is enabled"
+	| --exclusive[=mcs]															"allocate nodes in exclusive mode when cpu consumable resource is enabled and mcs plugin is enabled"
 	;
+
+<ACCOUNT>		={{{ sacctmgr show account -nP format=account }}};
+<CLUSTER>		={{{ sacctmgr show cluster -nP format=clusters }}};
+<DATATYPE>		=task|energy|network|filesystem;
+<DEP_TYPE>		=after|afterany|afterok|aftercorr|afternotok;
+<DEPENDENCY>	=<DEP_TYPE>:<QUEUED_JOBIDS>[:<QUEUED_JOBIDS>]...;
+<DISTRIBUTION>	=block|cyclic|arbitrary|plane;
+<EXPORT>		=ALL[,ENVVAR]|NONE|NIL;
+<FEATURE>		={{{ sinfo -ho %f }}};
+<GRES>			={{{ sinfo -ho '%G' | sed 's/([^)]*)//g' | tr ':' '\n' | grep -v '^[0-9]' | sort -u }}};
+<LICENSE>		={{{ scontrol show lic }}};
+<MAIL_TYPE>		=NONE|BEGIN|END|FAIL|ALL|REQUEUE|STAGE_OUT|TIME_LIMIT|TIME_LIMIT_90|TIME_LIMIT_80|TIME_LIMIT_50|ARRAY_TASKS;
+<NODE>			={{{ sinfo -ho %n }}};
+<PARTITION> 	={{{ sinfo -ho '%P' }}};
+<QOS>			={{{ sacctmgr show qos -nP format=name }}};
+<QUEUED_JOBIDS>	={{{ squeue --me -ho '%A' }}};
+<RESERVATION>	={{{ sacctmgr show reservation -nP format=name }}};
+<TIME>			=now[+count(seconds|minutes|hours|days|weeks)]|HH:MM[:SS]|YYYY-MM-DD[THH:MM[:SS]];
+<USER>			={{{ sacctmgr show user -nP format=user }}};
+
+<LSDEP>			=<DEPENDENCY>[,<DEPENDENCY>]...;
+<LSFEAT>		=<FEATURE>[,<FEATURE>]...;
+<LSLICS>		=<LICENSE>[,<LICENSE>]...;
+<LSNODE>		=<NODE>[,<NODE>]...;
+
+<EXE>			={{{ echo '' }}};
+<EXE@zsh>		={{{ compadd ${(k)commands} }}};
+<EXE@fish>		={{{ __fish_complete_command }}};
