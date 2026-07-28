@@ -9,13 +9,13 @@ srun ([<SRUN_OPTION> | <SLURM_COMMON_OPTION>]... || --) <PATH>...;
 	| --container-id=<_>														"OCI container ID"
 	| (--dependency=<LSDEP> || -d <LSDEP>)										"defer job until condition on jobid is satisfied"
 	| --deadline=<TIME>															"remove the job if no ending possible before this deadline (start > (deadline - time[-min]))"
-	| --gres=<GRES>																"required generic resources"
+	| --gres=<GRES>:<_>															"required generic resources"
 	| (--hold || -H)															"submit job in held state"
 	| (--no-kill || -k)															"do not kill job on node failure"
 	| (--licenses=<LSLICS> || -L <LSLICS>)										"required license, comma separated"
 	| (--clusters=<CLUSTER> || -M <CLUSTER>)									"Comma separated list of clusters to issue"
 	| (--distribution=<DISTRIBUTION> || -m <DISTRIBUTION>)						"distribution method for processes to nodes"
-	| (--job-name=(<PATH> || <_>) || -J (<PATH> || <_>))						"name of job"
+	| ((--job-name=(<PATH> || <_>)) || (-J (<PATH> || <_>)))					"name of job"
 	| --mail-type=<MAIL_TYPE>													"notify on state change: BEGIN, END, FAIL or ALL"
 	| --mail-user=<USER>														"who to send email notification for job state changes"
 	| (--ntasks=<_> || -n <_>)													"number of tasks to run"
@@ -93,6 +93,12 @@ srun ([<SRUN_OPTION> | <SLURM_COMMON_OPTION>]... || --) <PATH>...;
 <QOS>			={{{ sacctmgr show qos -nP format=name }}};
 <QUEUED_JOBIDS>	={{{ squeue --me -ho '%A' }}};
 <RESERVATION>	={{{ sacctmgr show reservation -nP format=name }}};
+<TIME>
+	= HH:MM:SS																	"Time in HH:MM[:SS]"
+	| YYYY-MM-DDTHH:MM:SS														"Time in YYYY-MM-DD[THH:MM[:SS]]"
+	| now+1s																	"Relative time in now+count[seconds|minutes|hours|days|weeks]"
+	||<_>
+	;
 <USER>			={{{ sacctmgr show user -nP format=user }}};
 
 <LSDEP>			=<DEPENDENCY>[,<DEPENDENCY>]...;
@@ -100,7 +106,6 @@ srun ([<SRUN_OPTION> | <SLURM_COMMON_OPTION>]... || --) <PATH>...;
 <LSLICS>		=<LICENSE>[,<LICENSE>]...;
 <LSNODE>		=<NODE>[,<NODE>]...;
 
-<TIME>			=(now[+1[seconds|minutes|hours|days|weeks]])|HH:MM[:SS]|MMDDYY|MM/DD/YY|YYYY-MM-DD|YYYY-MM-DD[THH:MM[:SS]];
 <EXE>			={{{ echo '' }}};
 <EXE@zsh>		={{{ compadd ${(k)commands} }}};
 <EXE@fish>		={{{ __fish_complete_command }}};
