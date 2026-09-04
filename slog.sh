@@ -9,6 +9,9 @@ _slog_help() {
 	printf '  -o, --stdout        Show StdOut paths\n' >&2
 	printf '  -a, --all           Show both StdOut and StdErr paths\n' >&2
 	printf '  -l, --local         Search for local logs instead of asking Slurm (default: false)\n' >&2
+	printf '  -d, --dir           Root directory to search for local logs (default: ".")\n' >&2
+	printf '  -v, --verbose       Enable verbose output (default: false)\n' >&2
+	printf '  -h, --help          Show this help message\n' >&2
 	return 0
 }
 
@@ -31,6 +34,13 @@ slog() {
 		fi
 	}
 
+	search_root='.'
+	for _d in log logs; do
+		if [ -d "$_d" ]; then
+			search_root="$_d"
+			break
+		fi
+	done
 	while [ $# -gt 0 ]; do
 		case "$1" in
 			-c|--color)        color=1 ;;
@@ -39,6 +49,9 @@ slog() {
 			-o|--stdout)       show_stderr=0; show_stdout=1 ;;
 			-a|--all)          show_stderr=1; show_stdout=1 ;;
 			-l|--local)        local_mode=1 ;;
+			-d|--dir)          search_root="$2"; shift ;;
+			-v|--verbose)      set -x ;;
+			-h|--help)         _slog_help; return 0 ;;
 			--)                shift; break ;;
 			-*)                printf 'Unknown option: %s\n' "$1" >&2; return 1 ;;
 			*)                 break ;;
@@ -54,11 +67,11 @@ slog() {
 	if [ "$local_mode" -eq 1 ]; then
 		for jobid; do
 			if [ "$show_stderr" -eq 1 ]; then
-				err_path=$(find log* "${SLOG_ARGS:-'-maxdepth 5'}" -type f -name "${jobid}.err" -print -quit)
+				err_path=$(find "$search_root" ${SLOG_ARGS:-'-maxdepth 5'} -type f -name "${jobid}.err" -print -quit)
 				[ -n "$err_path" ] && color_print "$err_path" "$ERR_COLOR" "$color"
 			fi
 			if [ "$show_stdout" -eq 1 ]; then
-				out_path=$(find log* "${SLOG_ARGS:-'-maxdepth 5'}" -type f -name "${jobid}.out" -print -quit)
+				out_path=$(find "$search_root" ${SLOG_ARGS:-'-maxdepth 5'} -type f -name "${jobid}.out" -print -quit)
 				[ -n "$out_path" ] && color_print "$out_path" "$OUT_COLOR" "$color"
 			fi
 		done
@@ -91,6 +104,7 @@ slog() {
 			[ -n "$out" ] && color_print "$out" "$OUT_COLOR" "$color"
 		fi
 	done
+	set +x
 }
 
 if [ -z "${BASH_SOURCE-}" ] && [ -z "${ZSH_EVAL_CONTEXT-}" ]; then

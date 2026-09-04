@@ -13,6 +13,8 @@ slog (<SLURM_MODE> || <LOCAL_MODE>);
     | (-e | --stderr)															"Show stderr (default: true)"
     | (-o | --stdout)															"Show stdout (default: false)"
     | (-a | --all)																"Show both stdout and stderr (default: false)"
+    | (-d <DIRECTORY> | --dir <DIRECTORY>)                                      "Directory to scan (default: '.')"
+    | (-v | --verbose)                                                          "Show verbose output (default: false)"
     ;
 
 <QUEUED_JOBIDS> = {{{ squeue --me -ho '%A|%j|%T' | tr -s '|' '\t' }}};

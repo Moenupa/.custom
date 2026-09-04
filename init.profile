@@ -1,4 +1,4 @@
-
+#!/bin/sh
 export GPG_TTY=$(tty)
 
 # hf related
